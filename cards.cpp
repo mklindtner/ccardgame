@@ -2,37 +2,25 @@
 #include <stdlib.h>
 #include <time.h>
 
-//generate a random cardset
-column *randomize_set()
+
+void rm_col_card(column_card *elem, int colid)
 {
-
-    // column *cols = (column *) malloc(sizeof(column)*7);
-    column *cols = (column *)malloc(sizeof(column) * 7);
-
-    card cards[52];
-    //generate all 7 columns
-    for (int i = 0; i < 7; i++)
+    column_card *cc = cols->columns[colid]->head;
+    column_card *prev = nullptr;
+    while(cc != elem)
     {
-        // card* c = (cards *) malloc(sizeof(card)*11);
-        for (int j = 0; j < 11; j++)
-        {
-            card *c = (card *)malloc(sizeof(card));
-        }
-
-        // cols->id = i;
-        // cols->cards = c;
+        prev = cc;
+        cc = cc->next;
     }
 
-    //generate all 52 cards
-
-    // int decksize = 52;
-    // for(int i = 0; i < 52; i++)
-    // {
-
-    // }
-
-    //insert cards randomly in each column
-    return nullptr;
+    if(cc == cols->columns[colid]->head)
+    {
+        free(cc);
+        return;
+    }
+    //remove element that's not header
+    prev->next = cc->next;
+    free(cc);
 }
 
 card **push(card **head_ref, int number, COLOR color)
@@ -53,14 +41,29 @@ card **push(card **head_ref, int number, COLOR color)
     return head_ref;
 }
 
+//insertion on initializtion needs to happen by row
+int placearray[CARDSIZE] = {
+1,2,3,4,5,6,7,
+   2,3,4,5,6,7,
+   2,3,4,5,6,7,
+   2,3,4,5,6,7,
+   2,3,4,5,6,7,
+   2,3,4,5,6,7,
+     3,4,5,6,7,
+       4,5,6,7,
+         5,6,7,
+           6,7,
+             7};
+
 //generate_cards must be called first, ideally also shuffle_cards
 void initialize_columns() {
-    stack_card *sc = stack.cards_ref[0];
-    column *c = cols->columns[0];
-    stack_card *sc2 = stack.cards_ref[1];
-    push_stack_to_column(sc, c);
-    push_stack_to_column(sc2, c);
+    for(int i = 0; i<CARDSIZE; i++) {
+        column *c = cols->columns[placearray[i]-1];
+        stack_card *sc=stack.cards_ref[i];
+        push_stack_to_column(sc, c);    
+    }
 }
+
 
 void push_stack_to_column(stack_card *sc, column *col)
 {
@@ -77,6 +80,7 @@ void push_stack_to_column(stack_card *sc, column *col)
     col->head = cc;
 }
 
+//make columns, no header made
 void generate_columns()
 {
     //allocate struct
@@ -88,14 +92,6 @@ void generate_columns()
     {
         (*cols).columns[i] = (column *)malloc(sizeof(column));        
     }
-
-    //example
-    //allocate element in array
-    // (*cols).columns[0] = (column *)malloc(sizeof(column));
-
-    //assign array and set next to null
-    // column *c = (*cols).columns[0];
-    // c->next = nullptr;
 }
 
 void swap_stack_card(int r1, int r2)
@@ -131,11 +127,7 @@ void push_stack_card(int id, card *card)
     scard->id = id;
     scard->card = card;
     scard->ondeck = false;
-    stack.cards_ref[id] = scard;
-    // printf("id input: %d\n", id);
-    // printf("id: %d\n", scard->id);
-    // printf("card0 id:%d\t card0 color:%d\n",card->number, card->color);
-    // printf("addr: %p\n", stack.arr[id]);
+    stack.cards_ref[id] = scard;   
 }
 
 card **generate_cards(int nothing)
@@ -169,22 +161,44 @@ card **generate_cards(int nothing)
     return prev;
 }
 
+column_card *last_elem_col(int id)
+{
+    column_card *cc = cols->columns[id]->head;
+    column_card *prev = nullptr;
+    while(cc != nullptr)
+    {
+        prev = cc;
+        cc = cc->next;
+    }
+    return prev;
+}
+
+//debugging writes
+void write_single_column(int id)
+{
+    column_card *cc = cols->columns[id]->head;
+    while(cc != nullptr)
+    {
+        printf("head: %p\t card num: %d\n",cc,cc->stack_card->card->number);
+        cc = cc->next;
+    }
+}
+
 void write_columns()
 {
-    column_card *head = cols->columns[0]->head;
-    printf("head: %p\t card num: %d\n", head, head->stack_card->card->number);
-    printf("head next: %p\t card next num: %d\n",head->next, head->next->stack_card->card->number);
+    for(int i = 0; i < COLUMNSIZE; i++)
+    {
+        column_card *head = cols->columns[i]->head;
+        printf("col num: %d\thead: %p\t card num: %d\n", i, head, head->stack_card->card->number);
+    }
 }
 
 void write_stack()
 {
     stack_card *t = stack.cards_ref[0];
-    // printf("id: %d\tp:%p", t->id, t->card);
     for (int i = 0; i < CARDSIZE; i++)
     {
         stack_card *sc = stack.cards_ref[i];
-        //card *c = sc->card;
-        // printf("num: %d\t pointer: %p\t ondeck: %d\n", sc->id, sc->card, sc->ondeck);
         printf("cnum: %d\t ccolor: %d\t isturned: %d\n", sc->card->number, sc->card->color, sc->card->isturned);
     }
 }
@@ -201,7 +215,11 @@ void write_name(card **col)
     return;
 }
 
-// card generate_card(int number, )
-// {
+//todo: fix naming: https://stackoverflow.com/questions/9907160/how-to-convert-enum-names-to-string-in-c
+void write_card(card *card)
+{
 
-// }
+    printf("%d:%d",card->number, card->color);
+}
+
+

@@ -74,6 +74,7 @@ void shuffle_stack();
 void generate_columns();
 void push_stack_to_column(stack_card *sc, column *col);
 void write_columns();
+void rm_col_card(column_card *elem, int colid);
 
 
 #endif
