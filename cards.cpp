@@ -31,6 +31,7 @@ column *randomize_set()
     // }
 
     //insert cards randomly in each column
+    return nullptr;
 }
 
 card **push(card **head_ref, int number, COLOR color)
@@ -51,14 +52,11 @@ card **push(card **head_ref, int number, COLOR color)
     return head_ref;
 }
 
-card **generate_cards(card **placeholder)
+card **generate_cards(int nothing)
 {
     int one_color = 13;
-    card **prev = (card **)(sizeof(card));
-    (*prev)->color = COLOR::SPADE;
-    (*prev)->isturned = false;
-    (*prev)->number = 1;
-    (*prev)->next = nullptr;
+    card **prev = (card **)malloc(sizeof(card));
+    push(prev, 1, COLOR::SPADE);
     //start 1-off
     for (int i = 1; i < 51; i++)
     {
@@ -79,20 +77,19 @@ card **generate_cards(card **placeholder)
             prev = push(prev, i + 1, COLOR::CLOVER); //(new insertion) -> null
         }
     }
-    placeholder = prev;
-    return placeholder;
+    return prev;
 }
 
 void write_name(card **col)
 {
     card *cur = (*col);
     while (cur != NULL) //columns
-    {
-        
-        printf("num: %d\t type: %d\t isturned: %d", cur->number, cur->number, cur->isturned);
+    {        
+        printf("num: %d\t type: %d\t isturned: %d\t", cur->number, cur->color, cur->isturned);
         cur = cur->next;
        
     }
+    printf("\n");
     return;
 }
 

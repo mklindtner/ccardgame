@@ -14,18 +14,13 @@ enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER};
 void f_set(int fnum);
 
-//card functions
-void write_name(card *col);
-card **push(card **head_ref, int number, COLOR color);
-
-card **generate_cards(card **placeholder);
 
 typedef struct card {
     COLOR color;
     int number;
     bool isturned;   
     struct card *next;
-};
+}card;
 
 // //each column contain 1 cards
 typedef struct column {
@@ -33,7 +28,13 @@ typedef struct column {
     // card *val;
     card cards[];
     // struct column *next; //next column
-};
+}column;
+
+//card functions
+void write_name(card **col);
+card **push(card **head_ref, int number, COLOR color);
+
+card **generate_cards(card **placeholder);
 
 // typedef struct column {
 //     int id;

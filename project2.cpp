@@ -1,10 +1,11 @@
 #include <stdio.h>
-#include "mainwindow.cpp"
-#include "headers.h"
+//#include "mainwindow.cpp"
+//#include "headers.h"
+#include "cards.cpp"
 
 int main()
 {
-    system("clear");
+    // system("clear");
     // layout();
 
     // char *input;
@@ -16,8 +17,8 @@ int main()
        
     // }
 
-    card **cards = generate_cards(nullptr);
-    write_name()
+    card **cards = generate_cards(0);    
+    write_name(cards);
     return 0;
 }
 
