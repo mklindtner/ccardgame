@@ -18,7 +18,13 @@ int main()
     // }
 
     card **cards = generate_cards(0);    
-    write_name(cards);
+    // write_name(cards);
+    shuffle_stack();
+    generate_columns();
+    initialize_columns();
+    write_columns();
+    // write_stack();
+
     return 0;
 }
 
