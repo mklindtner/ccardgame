@@ -60,10 +60,15 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
     if (c != nullptr)
     {
         stack_card *sc = c->stack_card;
-        if(sc->isturned == true)
-            printf("%d\t", sc->id);
-        else 
+        if (sc->isturned == true)
+        {
+            char const *num = get_number(sc->card->color);
+            printf("%d%s\t", sc->card->number, num);
+        }
+        else
+        {
             printf("[]\t");
+        }
         c = c->next;
     }
     else
@@ -71,6 +76,28 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
         printf("\t");
     }
     return c;
+}
+
+char const *get_number(int color)
+{
+    switch (color)
+    {
+    case 0:
+        return sSPADE;
+        break;
+    case 1:
+        return sHEARTS;
+        break;
+    case 2:
+        return sDIAMONDS;
+        break;
+    case 3:
+        return sCLOVER;
+        break;
+    default:
+        return nullptr;
+    }
+    return nullptr;
 }
 
 void layout()

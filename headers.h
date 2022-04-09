@@ -16,9 +16,15 @@ void layout();
 
 char const *empty = "";
 char const *header = "C1\tC2\tC3\tC4\tC5\tC6\tC7";
+char const *sSPADE = "S";
+char const *sHEARTS = "H";
+char const *sDIAMONDS = "D";
+char const *sCLOVER = "C";
+
 enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER};
 void f_set(int fnum);
+char const *get_number(int color);
 
 
 typedef struct card {
