@@ -1,6 +1,6 @@
 #include <stdio.h>
-//#include "mainwindow.cpp"
-//#include "headers.h"
+#include "mainwindow.cpp"
+#include "headers.h"
 #include "cards.cpp"
 
 int main()
@@ -22,12 +22,14 @@ int main()
     // shuffle_stack();
     generate_columns();
     initialize_columns();
-    int foo = 0;
-    write_single_column(foo);
-    column_card *cc = last_elem_col(foo);
-    // printf("id: %d",cc->stack_card->id);
-    printf("----\n");
-    rm_col_card(cc,foo);
+    int foo = 1;
+    // write_single_column(foo);
+    // column_card *cc = last_elem_col(foo);
+    // make_copy();
+    // write_single_column(foo);
+    start_turn();
+    layout_tableau();
+    // rm_col_card(cc,foo);
     // write_single_column(foo);
     // write_columns();
     // write_stack();

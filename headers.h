@@ -2,6 +2,8 @@
 #define _HEADERS
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 #define CARDSIZE 52
 #define COLUMNSIZE 7
 #define FOUNDATIONSIZE 4
@@ -22,14 +24,14 @@ void f_set(int fnum);
 typedef struct card {
     COLOR color;
     int number;
-    bool isturned;   
     struct card *next;
 }card;
 
-//each column contain 1 cards
+//row in stack
 typedef struct stack_card {
     int id;
-    bool ondeck;
+    // bool ondeck;
+    bool isturned;   
     card *card;
 }stack_card;
 
@@ -37,27 +39,32 @@ typedef struct sstack {
     stack_card **cards_ref;
 }sstack;
 
-//linked list to store stack_cards
+//a single column (linked list) containing a column card on each payload
 typedef struct column_card {
     struct stack_card *stack_card;
     struct column_card *next;
+    struct column_card *head;    
 }column_card;
 
-//linked list for .. ? 
-typedef struct column {
-    struct column_card *head;
-}column;
+// typedef struct output_card {
+//     int id;
+//     stack_card *c;
+// }output_card;
 
 //7 columns
 //array for columns
 typedef struct scolumns {
-    column **columns; 
+    column_card **columns; 
 }scolumns;
 
 
-scolumns *cols;
+scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
 stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
 sstack stack = {cards_ref}; 
+
+scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
+
+
 
 //card functions
 void write_name(card **col);
@@ -72,10 +79,15 @@ void shuffle_stack();
 
 //column funcitons
 void generate_columns();
-void push_stack_to_column(stack_card *sc, column *col);
+void push_stack_to_column(stack_card *sc, column_card *col);
 void write_columns();
 void rm_col_card(column_card *elem, int colid);
+void reversell();
+void layout_tableau();
 
+
+//window functions
+column_card *layout_field(column_card *c, int tabs, int);
 
 #endif
 
