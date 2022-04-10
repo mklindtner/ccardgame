@@ -4,10 +4,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 #define CARDSIZE 52
 #define COLUMNSIZE 7
 #define FOUNDATIONSIZE 4
 
+//commands
+char **split_move(char *input, char *pos);
+
+//layout
 void msg_bottom_left_last_message(char const *msg);
 void msg_bottom_left_message(char const *msg);
 void msg_bottom_left_input(char const *msg);
@@ -25,6 +30,8 @@ enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER};
 void f_set(int fnum);
 char const *get_number(int color);
+
+
 
 
 typedef struct card {
@@ -90,7 +97,8 @@ void write_columns();
 void rm_col_card(column_card *elem, int colid);
 void reversell();
 void layout_tableau();
-
+void initialize_columns();
+void start_turn();
 
 //window functions
 column_card *layout_field(column_card *c, int tabs, int);
