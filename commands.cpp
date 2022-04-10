@@ -1,18 +1,49 @@
 #include "headers.h"
 
+
+void transfer_column(int from_column, int to_column, column_card *movecc)
+{
+    // column_card *fromcc = cols->columns[from_column]->head;
+    // column_card *tocc = cols->columns[to_column]->head;    
+    column_card *mvnext = movecc->next;
+    movecc->next = cols->columns[to_column]->head;
+    cols->columns[to_column]->head = cols->columns[from_column]->head;        
+    cols->columns[from_column]->head = mvnext;
+    // cols->columns[from_column]->head = movecc->next;
+    
+}
+
 //lhss: C1:4C
 //rhss: C2
 void move_col_card(char **input)
 {
+    //LHS
     char *lhss = input[0];
-    char *rhss = input[1];
 
     char lhstype = lhss[0]; 
     char cfnum = lhss[1];
     char cardinfo[3];
     memcpy(cardinfo, &lhss[3], sizeof(char)*2);
-    cardinfo[2] = '\0'; //'4','h','\0',
-    printf("cardinfo: %c\t%c\n", cardinfo[0], cardinfo[1]);
+    cardinfo[2] = '\0'; //'h', '4' '\0'
+
+    int char_card_number = 0;
+    int char_card_color = 1;
+    // printf("cardinfo: %c\t%c\n", cardinfo[char_card_number], cardinfo[char_card_color]);
+    
+    char *color_card = &cardinfo[char_card_color];
+    int number_card = atoi(&cardinfo[char_card_number]);
+    int from_column = atoi(&cfnum) - 1;
+    // printf("number_column :%d\n", number_column);
+    // printf("mov_col char: %s\n", &cardinfo[char_card_color]);
+    column_card *mv_ccard = find_card_payload(from_column, number_card, color_card);
+    
+    //RHS
+    char *rhss = input[1];
+    int to_column = atoi(&rhss[1]) - 1;
+    // column_card *to_ccard = cols->columns[to_column]->head;
+    // printf("rhs to_column: %d\n",to_column);
+    // reversell();
+    transfer_column(from_column, to_column, mv_ccard);
 }
 
 

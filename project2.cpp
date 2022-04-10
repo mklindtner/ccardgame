@@ -54,5 +54,16 @@ int main()
     *make sure input can deal w. spaces (i.e. "C4 -> C4")
     *strlen(input)- strlen(pos) returns a float, floor this so we get an integer
     *split_move (commands.cpp) has a huge memory leak and doesn't clean any pointers, fix this.
-
+    *move_col_card uses atoi, this is a deprecated function, we should swap
+    
+    
+NOTICE
+    *move_col_card doesn't converge "A,Q,J,K" into a number
+    *find_card_by_payload (cards.cpp) doesn't account for F (foundations)
+    *find_card_by_payload doesn't account for giving a wrong color/id of a card
+    *transfer_columns cannot currently move to an empty column
+    *transfer_columns does not consider a null-head
+        *more exceptions to consider
+    
+    *the program does not deal with cols->columns[i]->head = nullptr, implement this behavior
  */

@@ -28,7 +28,7 @@ char const *sDIAMONDS = "D";
 char const *sCLOVER = "C";
 
 enum MSGTYPE {LAST, MESSAGE,INPUT};
-enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER};
+enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER,  NOTFOUND};
 void f_set(int fnum);
 char const *get_number(int color);
 
@@ -83,8 +83,9 @@ scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
 //card functions
 void write_name(card **col);
 card **push(card **head_ref, int number, COLOR color);
-
 card **generate_cards(card **placeholder);
+column_card *find_card_payload(int idcolumn,int number, char *_color);
+enum COLOR convert_to_color(char *color);
 
 //stack functions
 void write_stack();
@@ -103,6 +104,7 @@ void start_turn();
 
 //window functions
 column_card *layout_field(column_card *c, int tabs, int);
+
 
 #endif
 

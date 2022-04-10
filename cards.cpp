@@ -1,6 +1,59 @@
 #include "headers.h"
 
 
+//C4:2D->C1
+column_card *find_card_payload(int idcolumn,int number, char *_color)
+{
+    //convert char to enum
+    COLOR color = convert_to_color(_color);
+
+    //check whether foundation/column here
+    
+    column_card *column_card = cols->columns[idcolumn]->head;
+    // printf("looking for colid: %d\t number: %d\tcolor: %d\n",idcolumn, number, color);
+    while(column_card != nullptr)
+    {
+      
+        card *c = column_card->stack_card->card;
+        // printf("----\n");
+        // printf("card number: %d\tcard color: %d\n",c->number, c->color);
+        if(c->number == number && c->color == color)
+        {
+            // printf("<FOUND CARD>\n");
+            return column_card;  
+        }    
+        column_card = column_card->next;
+    }
+    // printf("-----\n");
+    printf("<CARD NOT FOUND>\n");
+    return nullptr;
+}
+
+enum COLOR convert_to_color(char *color)
+{
+    // printf("char is: %s\n enum: %s \n",color, sDIAMONDS);
+        
+
+    if(!strcmp(color,sSPADE))
+    {
+        return COLOR::SPADE;
+    }
+    if(!strcmp(color,sHEARTS))
+    {
+        return COLOR::HEARTS;
+    }
+    if(!strcmp(color,sDIAMONDS))
+    {
+        printf("<FOUND COLOR>\n");
+        return COLOR::DIAMONDS;
+    }
+    if(!strcmp(color,sCLOVER))
+    {
+        return COLOR::CLOVER;
+    }
+    printf("<COLOR NOT FOUND>");
+    return COLOR::NOTFOUND;
+}
 
 void reversell()
 {
