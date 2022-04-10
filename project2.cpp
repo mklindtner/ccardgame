@@ -62,8 +62,9 @@ NOTICE
     *find_card_by_payload (cards.cpp) doesn't account for F (foundations)
     *find_card_by_payload doesn't account for giving a wrong color/id of a card
     *transfer_columns cannot currently move to an empty column
-    *transfer_columns does not consider a null-head
-        *more exceptions to consider
-    
-    *the program does not deal with cols->columns[i]->head = nullptr, implement this behavior
+    *transfer_columns does not consider a null-head, i.e. cols->columns[i]->head = nullptr
+        *does not consider moving an entire column        
+
+    <<HERE>>
+    *the program does not currently flip a card, implement this behavior
  */

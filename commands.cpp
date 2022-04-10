@@ -3,14 +3,10 @@
 
 void transfer_column(int from_column, int to_column, column_card *movecc)
 {
-    // column_card *fromcc = cols->columns[from_column]->head;
-    // column_card *tocc = cols->columns[to_column]->head;    
     column_card *mvnext = movecc->next;
     movecc->next = cols->columns[to_column]->head;
     cols->columns[to_column]->head = cols->columns[from_column]->head;        
-    cols->columns[from_column]->head = mvnext;
-    // cols->columns[from_column]->head = movecc->next;
-    
+    cols->columns[from_column]->head = mvnext;    
 }
 
 //lhss: C1:4C
