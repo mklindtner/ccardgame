@@ -53,6 +53,8 @@ void layout_tableau()
 
         printf("\n");
     }
+
+    reversell();
 }
 
 column_card *layout_field(column_card *c, int tabs, int colnum)

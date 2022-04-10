@@ -11,6 +11,7 @@
 
 //commands
 char **split_move(char *input, char *pos);
+void move_col_card(char **input);
 
 //layout
 void msg_bottom_left_last_message(char const *msg);
