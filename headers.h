@@ -12,6 +12,7 @@
 //commands
 char **split_move(char *input, char *pos);
 void move_col_card(char **input);
+char *lhss_pad_card(char *lhss);
 
 //layout
 void msg_bottom_left_last_message(char const *msg);
@@ -49,6 +50,7 @@ typedef struct stack_card {
     card *card;
 }stack_card;
 
+
 typedef struct sstack {
     stack_card **cards_ref;
 }sstack;
@@ -60,18 +62,17 @@ typedef struct column_card {
     struct column_card *head;    
 }column_card;
 
-// typedef struct output_card {
-//     int id;
-//     stack_card *c;
-// }output_card;
-
 //7 columns
 //array for columns
 typedef struct scolumns {
     column_card **columns; 
 }scolumns;
 
+typedef struct sfoundations {
+    column_card **foundations;
+}sfoundations;
 
+sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
 scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
 stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
 sstack stack = {cards_ref}; 
@@ -86,6 +87,9 @@ card **push(card **head_ref, int number, COLOR color);
 card **generate_cards(card **placeholder);
 column_card *find_card_payload(int idcolumn,int number, char *_color);
 enum COLOR convert_to_color(char *color);
+const char *convert_to_char(enum COLOR c);
+// char convert_to_char(enum COLOR c);
+
 
 //stack functions
 void write_stack();
@@ -105,6 +109,8 @@ void start_turn();
 //window functions
 column_card *layout_field(column_card *c, int tabs, int);
 
+//foundation functions
+stack_card *find_card_payload_foundation(int from_foundation);
 
 #endif
 

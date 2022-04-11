@@ -25,6 +25,25 @@ void start_turn()
     }
 }
 
+void layout_foundation(int fond_id)
+{
+    column_card *head = fonds->foundations[fond_id]->head;
+    if(head != nullptr)
+    {
+        stack_card *sc = head->stack_card;        
+        if(sc == nullptr)
+        {
+            printf("[]");
+            return;
+        }
+
+        char const *color = get_number(sc->card->color);
+        printf("%d%s",sc->card->number,color);
+        return;
+    }
+    printf("[]");
+}
+
 // use cards to place
 void layout_tableau()
 {
@@ -37,12 +56,9 @@ void layout_tableau()
     column_card *c5 = cols->columns[4]->head;
     column_card *c6 = cols->columns[5]->head;
     column_card *c7 = cols->columns[6]->head;
+    int i = 0, f = 0;
     while (c1 != nullptr || c2 != nullptr || c3 != nullptr || c4 != nullptr || c5 != nullptr || c6 != nullptr || c7 != nullptr)
     {
-        // for(int i = 0; i <COLUMNSIZE; i++)
-        // {
-        //     pp[i] = layout_field(pp[i], 1, 1);
-        // }
         c1 = layout_field(c1, 1, 1);
         c2 = layout_field(c2, 2, 2);
         c3 = layout_field(c3, 3, 3);
@@ -50,7 +66,15 @@ void layout_tableau()
         c5 = layout_field(c5, 3, 3);
         c6 = layout_field(c6, 3, 3);
         c7 = layout_field(c7, 3, 3);
-
+        
+        i++;
+        if(i == 1 || i == 3 || i == 5 || i == 7)
+        {
+            printf("\t\t");
+            layout_foundation(f++);
+            printf("\tF%d",f);            
+        }        
+     
         printf("\n");
     }
 
@@ -69,7 +93,7 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
         }
         else
         {
-            printf("[]\t");
+            printf("[]\t");            
         }
         c = c->next;
     }

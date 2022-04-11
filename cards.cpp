@@ -1,6 +1,8 @@
 #include "headers.h"
 
 
+//C1->C2
+//C1:1S->C2
 //C4:2D->C1
 column_card *find_card_payload(int idcolumn,int number, char *_color)
 {
@@ -13,7 +15,6 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
     // printf("looking for colid: %d\t number: %d\tcolor: %d\n",idcolumn, number, color);
     while(column_card != nullptr)
     {
-      
         card *c = column_card->stack_card->card;
         // printf("----\n");
         // printf("card number: %d\tcard color: %d\n",c->number, c->color);
@@ -54,6 +55,28 @@ enum COLOR convert_to_color(char *color)
     printf("<COLOR NOT FOUND>");
     return COLOR::NOTFOUND;
 }
+
+const char *convert_to_char(enum COLOR c)
+{
+    if(c == COLOR::SPADE)
+    {
+        return sSPADE;
+    }
+    if(c == COLOR::HEARTS)
+    {
+        return sHEARTS;
+    }
+    if(c == COLOR::DIAMONDS)
+    {       
+        return sDIAMONDS;
+    }
+    if(c == COLOR::CLOVER)
+    {        
+        return sCLOVER;
+    }
+    return nullptr;
+}
+
 
 void reversell()
 {
@@ -160,13 +183,16 @@ void generate_columns()
 
     // allocate array in struct
     (*cols).columns = (column_card **)malloc(sizeof(column_card) * COLUMNSIZE);
-
-    // (*copycols).columns = (column_card **)malloc(sizeof(column_card) * COLUMNSIZE);
+    (*fonds).foundations = (column_card **)malloc(sizeof(column_card) * FOUNDATIONSIZE);
 
     for (int i = 0; i < COLUMNSIZE; i++)
     {
         (*cols).columns[i] = (column_card *)malloc(sizeof(column_card));
-        // (*copycols).columns[i] = (column_card *)malloc(sizeof(column_card));
+    }
+
+    for(int j = 0; j < FOUNDATIONSIZE; j++)
+    {
+        (*fonds).foundations[j] = (column_card *)malloc(sizeof(column_card));
     }
 }
 

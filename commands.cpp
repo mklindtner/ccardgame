@@ -1,41 +1,94 @@
 #include "headers.h"
 
 
+
 void transfer_column(int from_column, int to_column, column_card *movecc)
 {
+    // last card in column
+    if (movecc->next == nullptr)
+    {
+        movecc->next = cols->columns[to_column]->head;
+        cols->columns[from_column]->head = nullptr;
+        cols->columns[to_column]->head = movecc;
+        return;
+    }
+
     column_card *mvnext = movecc->next;
     movecc->next = cols->columns[to_column]->head;
-    cols->columns[to_column]->head = cols->columns[from_column]->head;        
-    cols->columns[from_column]->head = mvnext;    
+
+    cols->columns[to_column]->head = cols->columns[from_column]->head;
+    cols->columns[from_column]->head = mvnext;
+
+    mvnext->stack_card->isturned = 1;
 }
 
-//lhss: C1:4C
-//rhss: C2
+// lhss: C1:4C
+// rhss: C2
+// total: C1->F2, C1:A4->C2, F1->C3
 void move_col_card(char **input)
 {
-    //LHS
+    // LHS
     char *lhss = input[0];
 
-    char lhstype = lhss[0]; 
+    char lhstype = lhss[0];
     char cfnum = lhss[1];
     char cardinfo[3];
-    memcpy(cardinfo, &lhss[3], sizeof(char)*2);
-    cardinfo[2] = '\0'; //'h', '4' '\0'
+    memcpy(cardinfo, &lhss[3], sizeof(char) * 2);
+    cardinfo[2] = '\0'; 
 
     int char_card_number = 0;
     int char_card_color = 1;
     // printf("cardinfo: %c\t%c\n", cardinfo[char_card_number], cardinfo[char_card_color]);
-    
+
     char *color_card = &cardinfo[char_card_color];
     int number_card = atoi(&cardinfo[char_card_number]);
+    
+    // RHS
+    char *rhss = input[1];
+    int to_column = atoi(&rhss[1]) - 1;
+    char rhstype = rhss[0];
+    //check foundation
+    if(!strcmp(&lhstype,"F"))
+    {
+        int from_foundation = atoi(&cfnum) - 1;
+        // char *rhss = input[1];
+        int to_column = atoi(&rhss[1]) - 1;
+
+        //hånter nullpointer her        
+        column_card *fcnext = fonds->foundations[from_foundation]->head->next;
+        
+        //move foundation head to column head
+        column_card *fc = fonds->foundations[from_foundation]->head;
+        fc->next = cols->columns[to_column]->head;
+        cols->columns[to_column]->head = fc;
+
+        //foundation head move
+        fonds->foundations[from_foundation]->head = fcnext;
+        return;
+    }
+
+    if(!strcmp(&rhstype,"F"))
+    {
+        int to_foundation = atoi(&rhss[1]) - 1;
+        int from_column = atoi(&cfnum) - 1;
+
+        column_card *ccnext = cols->columns[from_column]->head->next;
+        column_card *cc = cols->columns[from_column]->head;
+
+        cc->next = fonds->foundations[to_foundation]->head;
+        fonds->foundations[to_foundation]->head = cc;
+
+        cols->columns[from_column]->head = ccnext;
+        return;
+    }
+
     int from_column = atoi(&cfnum) - 1;
+    
     // printf("number_column :%d\n", number_column);
     // printf("mov_col char: %s\n", &cardinfo[char_card_color]);
     column_card *mv_ccard = find_card_payload(from_column, number_card, color_card);
-    
-    //RHS
-    char *rhss = input[1];
-    int to_column = atoi(&rhss[1]) - 1;
+
+
     // column_card *to_ccard = cols->columns[to_column]->head;
     // printf("rhs to_column: %d\n",to_column);
     // reversell();
@@ -51,7 +104,7 @@ char **split_move(char *input, char *pos)
     char *lhss = (char *)malloc(lsize);
 
     int diff = strlen(input) - strlen(pos);
-    int d2 = (strlen(input) - diff) - 2; // lmao
+    int d2 = (strlen(input) - diff) - 2;
     char *rhss = (char *)malloc(d2);
 
     // get LHS of str
@@ -70,13 +123,43 @@ char **split_move(char *input, char *pos)
         // printf("rhs char: %c\n", input[j]);
         rhss[idx++] = input[j];
     }
+    char **splits = (char **)malloc(sizeof(char *) * 2);
+
+    // C1->C2, C1->F1 = C1:A1->F1, F1->C1 = F1:A4->C1
+    if (strlen(lhss) == 2)
+    {
+        char *new_lhss = lhss_pad_card(lhss);
+        splits[0] = new_lhss;
+        splits[1] = rhss;
+        // printf("splits from:|%s| to:|%s|\n",splits[0],splits[1]);
+        return splits;
+    }
     // printf("\nsize of lhss: %d\n", lsize);
     // printf("\nsize of rhss: %d\n", d2);
     // printf("\nrhss:|%s|\n", rhss);
     // printf("\nlhss:|%s|\n", lhss);
 
-    char **splits = (char **)malloc(sizeof(char *)*2);
     splits[0] = lhss;
     splits[1] = rhss;
+    // printf("final lhs: %s\trhs:%s\n",splits[0],splits[1]);
+
     return splits;
+}
+
+char *lhss_pad_card(char *lhss)
+{
+    printf("lhss: %s\n", lhss);
+    int fromcol = atoi(&lhss[1]) - 1;
+    int cnum = cols->columns[fromcol]->head->stack_card->card->number;
+    COLOR suit = cols->columns[fromcol]->head->stack_card->card->color;
+
+    char *new_lhss = (char *)malloc(sizeof(char) * 20);
+    char *cholor = (char *)malloc(sizeof(char) * 20);
+    char cc[2];
+    sprintf(cholor, "%s", convert_to_char(suit));
+
+    snprintf(new_lhss, sizeof(new_lhss), "%s:%d%s", lhss, cnum, cholor);   
+    
+    // printf("|%s|\n", new_lhss);
+    return new_lhss;
 }
