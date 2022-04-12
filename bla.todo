@@ -29,7 +29,7 @@ PLAY
         
             
 
-    ☐ Rewrite 2-decimal to J,Q,etc.
+    ✔ Rewrite 2-decimal to J,Q,etc. @done(22-04-12 22:06)
     Fix illegal writes
 
     

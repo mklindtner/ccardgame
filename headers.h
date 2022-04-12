@@ -28,10 +28,17 @@ char const *sHEARTS = "H";
 char const *sDIAMONDS = "D";
 char const *sCLOVER = "C";
 
+char const *KING = "K";
+char const *QUEEN = "Q";
+char const *JACK = "J";
+char const *TEN = "T";
+char const *ACE = "A";
+char *letter = (char *)malloc(sizeof(char)*2);
+
 enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER,  NOTFOUND};
 void f_set(int fnum);
-char const *get_number(int color);
+char const *int_to_suit(int color);
 
 
 
@@ -86,9 +93,9 @@ void write_name(card **col);
 card **push(card **head_ref, int number, COLOR color);
 card **generate_cards(card **placeholder);
 column_card *find_card_payload(int idcolumn,int number, char *_color);
-enum COLOR convert_to_color(char *color);
-const char *convert_to_char(enum COLOR c);
-// char convert_to_char(enum COLOR c);
+enum COLOR string_to_color(char *color);
+const char *color_to_string(enum COLOR c);
+int letter_to_int(char letter);
 
 
 //stack functions
@@ -108,6 +115,8 @@ void start_turn();
 
 //window functions
 column_card *layout_field(column_card *c, int tabs, int);
+char const *int_to_suit(int color);
+char const *int_to_letter(int cardvalue);
 
 //foundation functions
 stack_card *find_card_payload_foundation(int from_foundation);

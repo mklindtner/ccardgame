@@ -37,8 +37,9 @@ void layout_foundation(int fond_id)
             return;
         }
 
-        char const *color = get_number(sc->card->color);
-        printf("%d%s",sc->card->number,color);
+        char const *suit = int_to_suit(sc->card->color);
+        char const *letter = int_to_letter(sc->card->number);
+        printf("%s%s",letter,suit);
         return;
     }
     printf("[]");
@@ -47,6 +48,7 @@ void layout_foundation(int fond_id)
 // use cards to place
 void layout_tableau()
 {
+    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     reversell();
     // make this ** and contain each element
     column_card *c1 = cols->columns[0]->head;
@@ -88,8 +90,9 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
         stack_card *sc = c->stack_card;
         if (sc->isturned == true)
         {
-            char const *num = get_number(sc->card->color);
-            printf("%d%s\t", sc->card->number, num);
+            char const *suit = int_to_suit(sc->card->color);
+            char const *num = int_to_letter(sc->card->number);
+            printf("%s%s\t", num, suit);
         }
         else
         {
@@ -104,7 +107,8 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
     return c;
 }
 
-char const *get_number(int color)
+
+char const *int_to_suit(int color)
 {
     switch (color)
     {

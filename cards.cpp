@@ -7,7 +7,7 @@
 column_card *find_card_payload(int idcolumn,int number, char *_color)
 {
     //convert char to enum
-    COLOR color = convert_to_color(_color);
+    COLOR color = string_to_color(_color);
 
     //check whether foundation/column here
     
@@ -30,7 +30,41 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
     return nullptr;
 }
 
-enum COLOR convert_to_color(char *color)
+int letter_to_int(char letter)
+{
+    if(!strncmp(&letter, ACE, 1)) { return 1;}
+    if(!strncmp(&letter, TEN, 1)) {return 10;}
+    if(!strncmp(&letter, JACK, 1)) {return 11;} 
+    if(!strncmp(&letter, QUEEN, 1)) {return 12;} 
+    if(!strncmp(&letter, KING, 1)) {return 13;} 
+    return atoi(&letter);
+}
+
+char const *int_to_letter(int cardvalue) {
+    switch(cardvalue)
+    {
+        case 1:
+            return ACE;
+            break;
+        case 10:
+            return TEN;
+            break;
+        case 11:
+            return JACK;
+            break;
+        case 12:
+            return QUEEN;
+            break;
+        case 13:
+            return KING;
+            break;
+        default:
+            sprintf(letter, "%d", cardvalue);
+            return letter;
+    }
+}
+
+enum COLOR string_to_color(char *color)
 {
     // printf("char is: %s\n enum: %s \n",color, sDIAMONDS);
         
@@ -55,7 +89,7 @@ enum COLOR convert_to_color(char *color)
     return COLOR::NOTFOUND;
 }
 
-const char *convert_to_char(enum COLOR c)
+const char *color_to_string(enum COLOR c)
 {
     if(c == COLOR::SPADE)
     {

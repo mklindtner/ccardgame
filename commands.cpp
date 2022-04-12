@@ -38,21 +38,26 @@ void move_col_card(char **input)
 
     int char_card_number = 0;
     int char_card_color = 1;
+    int number_card = letter_to_int(cardinfo[char_card_number]);
+    printf("number_card :%d\n", number_card);
+    //convert letter to int
+
+
     // printf("cardinfo: %c\t%c\n", cardinfo[char_card_number], cardinfo[char_card_color]);
 
     char *color_card = &cardinfo[char_card_color];
-    int number_card = atoi(&cardinfo[char_card_number]);
+    // int number_card = atoi(&cardinfo[char_card_number]);
     
     // RHS
     char *rhss = input[1];
     int to_column = atoi(&rhss[1]) - 1;
     char rhstype = rhss[0];
 
-    printf("lhs: %s\t lhstype: %c#\trhs: %s\t rhstype: %c#\n", lhss, lhstype ,rhss, rhstype);
+    // printf("lhs: %s\t lhstype: %c#\trhs: %s\t rhstype: %c#\n", lhss, lhstype ,rhss, rhstype);
     //from foundation
     if(!strncmp(&lhstype,"F",1))
     {  
-        printf("<here>\n");
+        // printf("<here>\n");
         int from_foundation = atoi(&cfnum) - 1;
         // char *rhss = input[1];
         int to_column = atoi(&rhss[1]) - 1;
@@ -69,13 +74,13 @@ void move_col_card(char **input)
         fonds->foundations[from_foundation]->head = fcnext;
         return;
     }
-    printf("ahead of F\n");
+
     //to foundation
     if(!strncmp(&rhstype,"F",1))
     {
         int to_foundation = atoi(&rhss[1]) - 1;
         int from_column = atoi(&cfnum) - 1;
-        printf("to_foundation: %d\tfrom column:%d\n",to_foundation, from_column);
+        // printf("to_foundation: %d\tfrom column:%d\n",to_foundation, from_column);
 
         column_card *ccnext = cols->columns[from_column]->head->next;
         column_card *cchead = cols->columns[from_column]->head;
@@ -162,7 +167,7 @@ char *lhss_pad_card(char *lhss)
     char *new_lhss = (char *)malloc(sizeof(char) * 20);
     char *cholor = (char *)malloc(sizeof(char) * 20);
     char cc[2];
-    sprintf(cholor, "%s", convert_to_char(suit));
+    sprintf(cholor, "%s", color_to_string(suit));
 
     snprintf(new_lhss, sizeof(new_lhss), "%s:%d%s", lhss, cnum, cholor);   
     
