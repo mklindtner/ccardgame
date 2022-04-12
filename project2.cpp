@@ -39,7 +39,8 @@ int main()
         if (pos)
         {
             //['C1:A1']
-            char **c = split_move(input, pos);                        
+            char **c = split_move(input, pos);      
+            printf("--------------------\n");
             move_col_card(c);            
         }
     }
