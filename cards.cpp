@@ -45,7 +45,6 @@ enum COLOR convert_to_color(char *color)
     }
     if(!strcmp(color,sDIAMONDS))
     {
-        printf("<FOUND COLOR>\n");
         return COLOR::DIAMONDS;
     }
     if(!strcmp(color,sCLOVER))

@@ -47,9 +47,12 @@ void move_col_card(char **input)
     char *rhss = input[1];
     int to_column = atoi(&rhss[1]) - 1;
     char rhstype = rhss[0];
-    //check foundation
-    if(!strcmp(&lhstype,"F"))
-    {
+
+    printf("lhs: %s\t lhstype: %c#\trhs: %s\t rhstype: %c#\n", lhss, lhstype ,rhss, rhstype);
+    //from foundation
+    if(!strncmp(&lhstype,"F",1))
+    {  
+        printf("<here>\n");
         int from_foundation = atoi(&cfnum) - 1;
         // char *rhss = input[1];
         int to_column = atoi(&rhss[1]) - 1;
@@ -66,22 +69,25 @@ void move_col_card(char **input)
         fonds->foundations[from_foundation]->head = fcnext;
         return;
     }
-
-    if(!strcmp(&rhstype,"F"))
+    printf("ahead of F\n");
+    //to foundation
+    if(!strncmp(&rhstype,"F",1))
     {
         int to_foundation = atoi(&rhss[1]) - 1;
         int from_column = atoi(&cfnum) - 1;
+        printf("to_foundation: %d\tfrom column:%d\n",to_foundation, from_column);
 
         column_card *ccnext = cols->columns[from_column]->head->next;
-        column_card *cc = cols->columns[from_column]->head;
+        column_card *cchead = cols->columns[from_column]->head;
 
-        cc->next = fonds->foundations[to_foundation]->head;
-        fonds->foundations[to_foundation]->head = cc;
+        // cchead->next = fonds->foundations[to_foundation]->head;
+        cchead->next = fonds->foundations[to_foundation]->head;
+        fonds->foundations[to_foundation]->head = cchead;
 
         cols->columns[from_column]->head = ccnext;
         return;
     }
-
+    printf("moving here\n");
     int from_column = atoi(&cfnum) - 1;
     
     // printf("number_column :%d\n", number_column);
