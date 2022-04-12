@@ -25,8 +25,7 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
         }    
         column_card = column_card->next;
     }
-    // printf("-----\n");
-    printf("<CARD NOT FOUND>\n");
+    sprintf(g_msg, "CARD NOT FOUND");
     return nullptr;
 }
 
@@ -65,27 +64,26 @@ char const *int_to_letter(int cardvalue) {
 }
 
 enum COLOR string_to_color(char *color)
-{
-    // printf("char is: %s\n enum: %s \n",color, sDIAMONDS);
-        
-
-    if(!strcmp(color,sSPADE))
+{        
+    printf("colorz: %s\n", color);
+    if(!strncmp(color,sSPADE,1))
     {
         return COLOR::SPADE;
     }
-    if(!strcmp(color,sHEARTS))
+    if(!strncmp(color,sHEARTS,1))
     {
         return COLOR::HEARTS;
     }
-    if(!strcmp(color,sDIAMONDS))
+    if(!strncmp(color,sDIAMONDS,1))
     {
         return COLOR::DIAMONDS;
     }
-    if(!strcmp(color,sCLOVER))
+    if(!strncmp(color,sCLOVER,1))
     {
         return COLOR::CLOVER;
     }
-    printf("<COLOR NOT FOUND>");
+    printf("NOT NOT FOUND\n");
+    sprintf(g_msg, "COLOR NOT FOUND");
     return COLOR::NOTFOUND;
 }
 

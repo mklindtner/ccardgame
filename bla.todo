@@ -24,9 +24,10 @@ PLAY
         ☐ Foundations
             ☐ //TODO Håndter sidste kort i foundation
         ☐ Implement rule requirements
-            ☐ Move 1 higher different suit
+            ✔ CARD NOT FOUND @done(22-04-12 22:32)
+            ☐ Move 1 higher different suit columns
             ☐ only top foundation can be moved to column if 1 higher different suit
-        
+            ☐ to foundation same suit 1 higher if card, ACE if no cards
             
 
     ✔ Rewrite 2-decimal to J,Q,etc. @done(22-04-12 22:06)

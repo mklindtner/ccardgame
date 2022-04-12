@@ -9,10 +9,6 @@
 #define COLUMNSIZE 7
 #define FOUNDATIONSIZE 4
 
-//commands
-char **split_move(char *input, char *pos);
-void move_col_card(char **input);
-char *lhss_pad_card(char *lhss);
 
 //layout
 void msg_bottom_left_last_message(char const *msg);
@@ -34,6 +30,8 @@ char const *JACK = "J";
 char const *TEN = "T";
 char const *ACE = "A";
 char *letter = (char *)malloc(sizeof(char)*2);
+char *g_msg = (char *)malloc(sizeof(char)*100);
+
 
 enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER,  NOTFOUND};
@@ -120,6 +118,12 @@ char const *int_to_letter(int cardvalue);
 
 //foundation functions
 stack_card *find_card_payload_foundation(int from_foundation);
+
+//commands
+char **split_move(char *input, char *pos);
+void move_col_card(char **input);
+char *lhss_pad_card(char *lhss);
+char validate_move(int to_column, card *cvalidate);
 
 #endif
 
