@@ -124,6 +124,7 @@ char **split_move(char *input, char *pos);
 void move_col_card(char **input);
 char *lhss_pad_card(char *lhss);
 char validate_move(int to_column, card *cvalidate);
+char validate_move_foundation(int to_foundation, card *cvalidate);
 
 #endif
 

@@ -3,7 +3,7 @@
     *strlen(input)- strlen(pos) returns a float, floor this so we get an integer
     *split_move (commands.cpp) has a huge memory leak and doesn't clean any pointers, fix this.
     *move_col_card uses atoi, this is a deprecated function, we should swap
-    
+    *fix the input string, so no segment error eccours if nonsense input is given
     
     
 NOTICE
@@ -21,14 +21,13 @@ NOTICE
 PLAY
     Relevant
         ✔ C1:C2 @done(22-04-11 21:10)
-        ☐ Foundations
-            ☐ //TODO Håndter sidste kort i foundation
-        ☐ Implement rule requirements
+        ✔ Foundations @done(22-04-12 23:25)
+            ✔ //TODO Håndter sidste kort i foundation @done(22-04-12 23:25)
+        ✔ Implement rule requirements @done(22-04-12 23:25)
             ✔ CARD NOT FOUND @done(22-04-12 22:32)
             ✔ Move 1 higher different suit columns @done(22-04-12 22:52)
-            ☐ only top foundation can be moved to column if 1 higher different suit
-            ☐ to foundation same suit 1 higher if card, ACE if no cards
-            
+            ✔ only top foundation can be moved to column if 1 higher different suit @done(22-04-12 23:13)
+            ✔ to foundation same suit 1 higher if card, ACE if no cards @done(22-04-12 23:25)            
 
     ✔ Rewrite 2-decimal to J,Q,etc. @done(22-04-12 22:06)
     Fix illegal writes

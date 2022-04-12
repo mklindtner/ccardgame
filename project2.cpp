@@ -8,7 +8,7 @@ int main()
 {
     card **cards = generate_cards(0);
     // write_name(cards);
-    // shuffle_stack();
+    shuffle_stack();
     generate_columns();
     initialize_columns();
     int foo = 1;
@@ -17,7 +17,6 @@ int main()
     // make_copy();
     // write_single_column(foo);
     start_turn();
-    // layout_tableau();
     sprintf(g_msg, "");
     // g_msg = "";
     char *input = (char *)malloc(sizeof(char) * 40);

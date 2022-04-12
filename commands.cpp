@@ -54,13 +54,12 @@ void move_col_card(char **input)
     if (!strncmp(&lhstype, "F", 1))
     {
         int from_foundation = atoi(&cfnum) - 1;
-        // char *rhss = input[1];
         int to_column = atoi(&rhss[1]) - 1;
 
         // empty column
         if (cols->columns[to_column]->head == nullptr)
         {
-            if(fonds->foundations[from_foundation]->head->stack_card->card->number == 1)
+            if (fonds->foundations[from_foundation]->head->stack_card->card->number == 1)
             {
                 cols->columns[to_column]->head = fonds->foundations[from_foundation]->head;
                 fonds->foundations[from_foundation]->head = nullptr;
@@ -97,7 +96,27 @@ void move_col_card(char **input)
         column_card *ccnext = cols->columns[from_column]->head->next;
         column_card *cchead = cols->columns[from_column]->head;
 
-        // cchead->next = fonds->foundations[to_foundation]->head;
+        // empty foundation
+        if (fonds->foundations[to_foundation]->head == nullptr)
+        {
+            if (cchead->stack_card->card->number != 1)
+            {
+                sprintf(g_msg, "Illegal move");
+                return;
+            }
+            cchead->next = fonds->foundations[to_foundation]->head;
+            fonds->foundations[to_foundation]->head = cchead;
+
+            cols->columns[from_column]->head = ccnext;
+            return;
+        }
+
+        // validate any other card
+        if (validate_move_foundation(to_foundation, cchead->stack_card->card))
+        {
+            sprintf(g_msg, "Illegal move");
+            return;
+        }
         cchead->next = fonds->foundations[to_foundation]->head;
         fonds->foundations[to_foundation]->head = cchead;
 
@@ -115,6 +134,17 @@ void move_col_card(char **input)
             transfer_column(from_column, to_column, mv_ccard);
         }
     }
+}
+
+char validate_move_foundation(int to_foundation, card *cvalidate)
+{
+    card *chead = fonds->foundations[to_foundation]->head->stack_card->card;
+    if ((cvalidate->color == chead->color) && (chead->number == cvalidate->number + 1))
+    {
+        return 0;
+    }
+    sprintf(g_msg, "Illegal move");
+    return 1;
 }
 
 char validate_move(int to_column, card *cvalidate)
