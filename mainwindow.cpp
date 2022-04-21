@@ -1,9 +1,9 @@
 #ifndef _MAINWINDOW
 #define _MAINWINDOW
-// make a shared cpp file for headers
 #include "headers.h"
 
-void default_game(char *input)
+//print head card of each foundation
+void start_layout_table(char *input)
 {
     printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     for (int i = 0; i < 4; i++)

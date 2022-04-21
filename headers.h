@@ -9,6 +9,7 @@
 #define COLUMNSIZE 7
 #define FOUNDATIONSIZE 4
 #define MAX_INPUT_SZ 256
+#define PREGAME_ROWSIZE 8
 
 
 //layout
@@ -34,6 +35,7 @@ char *letter = (char *)malloc(sizeof(char)*2);
 char *g_msg = (char *)malloc(sizeof(char)*100);
 char *pregame_cmd = (char *)malloc(sizeof(char)*3);
 char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
+char *card_tmp = (char *)malloc(sizeof(char)*3);
 
 
 enum MSGTYPE {LAST, MESSAGE,INPUT};
@@ -118,7 +120,7 @@ void start_turn();
 column_card *layout_field(column_card *c, int tabs, int);
 char const *int_to_suit(int color);
 char const *int_to_letter(int cardvalue);
-void default_game(char *input);
+void start_layout_table(char *input);
 void layout_foundation(int fond_id);
 
 //foundation functions
@@ -131,6 +133,10 @@ char *lhss_pad_card(char *lhss);
 char validate_move(int to_column, card *cvalidate);
 char validate_move_foundation(int to_foundation, card *cvalidate);
 
+//pregame
+void pregame_layout_foundation(char *input, bool show_cards);
+void pregame_layout_cards(bool show_cards);
+void pregame_empty();
 #endif
 
 
