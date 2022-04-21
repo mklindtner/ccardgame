@@ -8,6 +8,7 @@
 #define CARDSIZE 52
 #define COLUMNSIZE 7
 #define FOUNDATIONSIZE 4
+#define MAX_INPUT_SZ 256
 
 
 //layout
@@ -31,6 +32,8 @@ char const *TEN = "T";
 char const *ACE = "A";
 char *letter = (char *)malloc(sizeof(char)*2);
 char *g_msg = (char *)malloc(sizeof(char)*100);
+char *pregame_cmd = (char *)malloc(sizeof(char)*3);
+char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
 
 
 enum MSGTYPE {LAST, MESSAGE,INPUT};
@@ -115,6 +118,8 @@ void start_turn();
 column_card *layout_field(column_card *c, int tabs, int);
 char const *int_to_suit(int color);
 char const *int_to_letter(int cardvalue);
+void default_game(char *input);
+void layout_foundation(int fond_id);
 
 //foundation functions
 stack_card *find_card_payload_foundation(int from_foundation);

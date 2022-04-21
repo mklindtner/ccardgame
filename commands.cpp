@@ -49,7 +49,7 @@ void move_col_card(char **input)
     int to_column = atoi(&rhss[1]) - 1;
     char rhstype = rhss[0];
 
-    printf("lhs: %s\t lhstype: %c#\trhs: %s\t rhstype: %c#\n", lhss, lhstype, rhss, rhstype);
+    // printf("lhs: %s\t lhstype: %c#\trhs: %s\t rhstype: %c#\n", lhss, lhstype, rhss, rhstype);
     // from foundation
     if (!strncmp(&lhstype, "F", 1))
     {

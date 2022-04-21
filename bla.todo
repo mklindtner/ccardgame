@@ -34,6 +34,11 @@ PLAY
 
     
 Prelobby
-    loop gamez
+    ☐ loop games
+    ☐ LD <filename>
+    ☐ LD
 
+
+General
+    ☐ fix status message
 */

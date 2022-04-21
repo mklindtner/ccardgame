@@ -3,6 +3,20 @@
 // make a shared cpp file for headers
 #include "headers.h"
 
+void default_game(char *input)
+{
+    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
+    for (int i = 0; i < 4; i++)
+    {
+        printf("\t\t\t\t\t\t\t\t");
+        layout_foundation(i);
+        printf("\tF%d\n\n", i);
+    }
+    msg_bottom_left_last_message(input);
+    msg_bottom_left_message(g_msg);
+    msg_bottom_left_input(empty);
+}
+
 int turnarray[CARDSIZE] = {
     1, 0, 0, 0, 0, 0, 0,
     1, 0, 0, 0, 0, 0,
@@ -28,10 +42,10 @@ void start_turn()
 void layout_foundation(int fond_id)
 {
     column_card *head = fonds->foundations[fond_id]->head;
-    if(head != nullptr)
+    if (head != nullptr)
     {
-        stack_card *sc = head->stack_card;        
-        if(sc == nullptr)
+        stack_card *sc = head->stack_card;
+        if (sc == nullptr)
         {
             printf("[]");
             return;
@@ -39,7 +53,7 @@ void layout_foundation(int fond_id)
 
         char const *suit = int_to_suit(sc->card->color);
         char const *letter = int_to_letter(sc->card->number);
-        printf("%s%s",letter,suit);
+        printf("%s%s", letter, suit);
         return;
     }
     printf("[]");
@@ -68,15 +82,15 @@ void layout_tableau()
         c5 = layout_field(c5, 3, 3);
         c6 = layout_field(c6, 3, 3);
         c7 = layout_field(c7, 3, 3);
-        
+
         i++;
-        if(i == 1 || i == 3 || i == 5 || i == 7)
+        if (i == 1 || i == 3 || i == 5 || i == 7)
         {
             printf("\t\t");
             layout_foundation(f++);
-            printf("\tF%d",f);            
-        }        
-     
+            printf("\tF%d", f);
+        }
+
         printf("\n");
     }
 
@@ -96,7 +110,7 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
         }
         else
         {
-            printf("[]\t");            
+            printf("[]\t");
         }
         c = c->next;
     }
@@ -106,7 +120,6 @@ column_card *layout_field(column_card *c, int tabs, int colnum)
     }
     return c;
 }
-
 
 char const *int_to_suit(int color)
 {
@@ -197,6 +210,5 @@ void msg_bottom_left_input(char const *msg)
     printf("INPUT > %s", msg);
     // msg_bottom_left_last_message(msg);
 }
-
 
 #endif

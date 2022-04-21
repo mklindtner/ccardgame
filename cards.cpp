@@ -82,7 +82,6 @@ enum COLOR string_to_color(char *color)
     {
         return COLOR::CLOVER;
     }
-    printf("NOT NOT FOUND\n");
     sprintf(g_msg, "COLOR NOT FOUND");
     return COLOR::NOTFOUND;
 }

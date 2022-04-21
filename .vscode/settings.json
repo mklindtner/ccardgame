@@ -29,6 +29,7 @@
         "string_view": "cpp",
         "initializer_list": "cpp",
         "utility": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "typeinfo": "cpp"
     }
 }
