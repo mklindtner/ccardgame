@@ -142,8 +142,8 @@ void pregame_main(char *input)
         // cut 2 first letters here
         sprintf(pregame_cmd, "%.2s", input);
         sprintf(pregame_arg, "%s", input + 3);
-        printf("pregame_cmd: |%s|\n", pregame_cmd);
-        printf("pregame_arg: |%s|\n", pregame_arg);
+        // printf("pregame_cmd: |%s|\n", pregame_cmd);
+        // printf("pregame_arg: |%s|\n", pregame_arg);
 
         if (!strcmp(pregame_cmd, "LD"))
         {
@@ -181,6 +181,11 @@ void pregame_main(char *input)
                 // printf("split_point: %d\tpregame_arg :|%s|\n", split_point,pregame_arg);
                 pregame_SI(split_point);
             }
+        }
+
+        if(!strcmp(pregame_cmd, "QQ"))
+        {
+            quit = true;
         }
     }
 }

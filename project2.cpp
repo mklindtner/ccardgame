@@ -35,7 +35,8 @@ stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
 sstack stack = {cards_ref};
 scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
 
-
+char quit = false;
+char quit_game = false;
 
 int main()
 {
@@ -54,6 +55,11 @@ int main()
     while (1)
     {
         system("clear");
+        if(quit_game == true)
+        {
+            start_layout_table(input);
+            quit_game = false;
+        }
         sprintf(g_msg, "");
 
         fgets(input, MAX_INPUT_SZ, stdin);
@@ -61,7 +67,10 @@ int main()
         cut_space(input);
 
         pregame_main(input);
-
+        if(quit == true)
+        {
+            break;
+        }
         // play mode
         if (!strcmp(input, "P"))
         {
@@ -79,6 +88,7 @@ int main()
 
                 if (!strcmp(input, "Q"))
                 {
+                    quit_game = true;
                     break;
                 }
                 if (pos)

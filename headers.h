@@ -30,6 +30,8 @@ extern char const *QUEEN;
 extern char const *JACK;
 extern char const *TEN;
 extern char const *ACE;
+extern char quit;
+extern char quit_game;
 
 extern char *letter;
 extern char *g_msg;
