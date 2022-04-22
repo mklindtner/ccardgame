@@ -65,7 +65,7 @@ char const *int_to_letter(int cardvalue) {
 
 enum COLOR string_to_color(char *color)
 {        
-    printf("colorz: %s\n", color);
+    // printf("colorz: %s\n", color);
     if(!strncmp(color,sSPADE,1))
     {
         return COLOR::SPADE;
@@ -151,18 +151,13 @@ void rm_col_card(column_card *elem, int colid)
 
 card **push(card **head_ref, int number, COLOR color)
 {
-
-    /* 1. allocate node */
     card *new_node = (card *)malloc(sizeof(card));
 
-    /* 2. put in the data */
     new_node->number = number;
     new_node->color = color;    
 
-    /* 3. Make next of new node as head */
     new_node->next = (*head_ref);
 
-    /* 4. move the head to point to the new node */
     (*head_ref) = new_node;
     return head_ref;
 }
@@ -210,7 +205,6 @@ void push_stack_to_column(stack_card *sc, column_card *col)
 // make columns, no header made
 void generate_columns()
 {
-
     // allocate array in struct
     (*cols).columns = (column_card **)malloc(sizeof(column_card) * COLUMNSIZE);
     (*fonds).foundations = (column_card **)malloc(sizeof(column_card) * FOUNDATIONSIZE);
@@ -264,34 +258,40 @@ void push_stack_card(int id, card *card)
     scard->id = id;
     scard->card = card;
     scard->isturned = false;
-    // scard->ondeck = false;
     stack.cards_ref[id] = scard;
+    // card_definition_list[id] = card;
 }
 
 card **generate_cards(int nothing)
 {
     int one_color = 13;
     card **prev = (card **)malloc(sizeof(card));
-    prev = push(prev, 1, COLOR::SPADE);
+    // card_definition_list[0] = prev[0];
+
+    prev = push(prev, 1, COLOR::SPADE);    
     push_stack_card(0, *prev);
 
     // start 1-off due to head in linked list
     for (int i = 1; i < CARDSIZE; i++)
     {
         if (i < one_color)
-        {
+        {             
+            // card_definition_list[i] = prev[0];   
             prev = push(prev, i + 1, COLOR::SPADE); //(new insertion) -> null
         }
         else if (i < one_color * 2)
         {
+            // card_definition_list[i] = prev[0];   
             prev = push(prev, (i + 1) - one_color, COLOR::HEARTS);
         }
         else if (i < one_color * 3)
         {
+            // card_definition_list[i] = prev[0];   
             prev = push(prev, (i + 1) - one_color * 2, COLOR::DIAMONDS);
         }
         else
         {
+            // card_definition_list[i] = prev[0];   
             prev = push(prev, (i + 1) - one_color * 3, COLOR::CLOVER);
         }
         push_stack_card(i, *prev);

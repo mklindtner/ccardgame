@@ -172,7 +172,7 @@ char **split_move(char *input, char *pos)
     // get LHS of str
     for (int i = 0; i < lsize; i++)
     {
-        // printf("lhs char: %c\n", input[i]);
+        printf("lhs char: %c\n", input[i]);
         lhss[i] = input[i];
     }
 
@@ -182,7 +182,7 @@ char **split_move(char *input, char *pos)
     // get RHS of str
     for (int j = lsize + 2; j < strlen(input); j++)
     {
-        // printf("rhs char: %c\n", input[j]);
+        printf("rhs char: %c\n", input[j]);
         rhss[idx++] = input[j];
     }
     char **splits = (char **)malloc(sizeof(char *) * 2);

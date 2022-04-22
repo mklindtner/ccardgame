@@ -10,6 +10,7 @@
 #define FOUNDATIONSIZE 4
 #define MAX_INPUT_SZ 256
 #define PREGAME_ROWSIZE 8
+#define MAX_LENGTH_FILE 52*4+1
 
 
 //layout
@@ -42,9 +43,6 @@ enum MSGTYPE {LAST, MESSAGE,INPUT};
 enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER,  NOTFOUND};
 void f_set(int fnum);
 char const *int_to_suit(int color);
-
-
-
 
 typedef struct card {
     COLOR color;
@@ -82,10 +80,13 @@ typedef struct sfoundations {
     column_card **foundations;
 }sfoundations;
 
+card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
+
 sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
 scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
 stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
 sstack stack = {cards_ref}; 
+
 
 scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
 
@@ -134,9 +135,16 @@ char validate_move(int to_column, card *cvalidate);
 char validate_move_foundation(int to_foundation, card *cvalidate);
 
 //pregame
-void pregame_layout_foundation(char *input, bool show_cards);
+void pregame_layout(char *input, bool show_cards);
 void pregame_layout_cards(bool show_cards);
 void pregame_empty();
+void pregame_main(char *input);
+void pregame_LD(char *input, char *pregame_cmd, char *pregame_arg);
+void cut_space(char *input);
+
+//game
+void play_game(char *input);
+
 #endif
 
 
