@@ -159,6 +159,8 @@ card **push(card **head_ref, int number, COLOR color)
     new_node->next = (*head_ref);
 
     (*head_ref) = new_node;
+
+    card_definition_list[color*13 + number - 1] = new_node;
     return head_ref;
 }
 

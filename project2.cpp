@@ -40,7 +40,6 @@ scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
 int main()
 {
     card **cards = generate_cards(0);
-    // printf("card number: %d\n",cards[0]->next->next->number);
     // shuffle_stack();
     generate_columns();
     initialize_columns();
@@ -54,7 +53,7 @@ int main()
     start_layout_table(input);
     while (1)
     {
-        //system("clear");
+        system("clear");
         sprintf(g_msg, "");
 
         fgets(input, MAX_INPUT_SZ, stdin);

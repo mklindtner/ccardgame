@@ -16,32 +16,16 @@ void pregame_LD(char *input)
         FILE *f = fopen(pregame_arg, "r");
         char *reader = nullptr;
         int i = 0;
-        card *head = stack.cards_ref[0]->card;
+        // card *head = stack.cards_ref[0]->card;
         do
         {
             fgets(buff, MAX_LENGTH_FILE, f);
             int number = letter_to_int(buff[0]);
             COLOR suit = string_to_color(&buff[1]);
-            int index = suit * 13 + number;
-            // printf("head is: %d\t head next: %d\n", head->number, head->next->number);
-            // card *ccur = head;
-            // for (int i = 0; i < index; i++)
-            // {
-            //     ccur = head->next;
-            // }
-
-            // stack.cards_ref[i]->card = head;
-            // printf("cards number: %d\n", cards[index]->number);
-            i++;
-            // for(int i = 0; i < index; i++)
-            // {
-
-            // }
-            // stack.cards_ref[index]->card =
-
-            // stack.cards_ref[i]
-
-            // printf("num: %d\t",number);
+            int index = (suit * 13 + number) - 1;
+            card *c = card_definition_list[index];            
+            stack.cards_ref[i]->card = c;
+            i++;            
         } while (!feof(f));
         printf("\nout of loop\n");
         fclose(f);
