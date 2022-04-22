@@ -1,9 +1,40 @@
 #include <stdio.h>
 #include "headers.h"
+/**
 #include "mainwindow.cpp"
 #include "cards.cpp"
 #include "commands.cpp"
 #include "pregame.cpp"
+*/
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
+
+char const *empty = "";
+char const *header = "C1\tC2\tC3\tC4\tC5\tC6\tC7";
+char const *sSPADE = "S";
+char const *sHEARTS = "H";
+char const *sDIAMONDS = "D";
+char const *sCLOVER = "C";
+char const *KING = "K";
+char const *QUEEN = "Q";
+char const *JACK = "J";
+char const *TEN = "T";
+char const *ACE = "A";
+
+char *letter = (char *)malloc(sizeof(char)*2);
+char *g_msg = (char *)malloc(sizeof(char)*100);
+char *pregame_cmd = (char *)malloc(sizeof(char)*3);
+char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
+char *card_tmp = (char *)malloc(sizeof(char)*3);
+
+card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
+sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
+scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
+stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
+sstack stack = {cards_ref};
+scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
+
 
 
 int main()
@@ -23,7 +54,7 @@ int main()
     start_layout_table(input);
     while (1)
     {
-        system("clear");
+        //system("clear");
         sprintf(g_msg, "");
 
         fgets(input, MAX_INPUT_SZ, stdin);
@@ -75,3 +106,4 @@ void cut_space(char *input)
     }
     // printf("input after cut: |%s|\n", input);
 }
+#pragma clang diagnostic pop

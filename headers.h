@@ -19,29 +19,29 @@ void msg_bottom_left_message(char const *msg);
 void msg_bottom_left_input(char const *msg);
 void layout();
 
+extern char const *empty;
+extern char const *header;
+extern char const *sSPADE;
+extern char const *sHEARTS;
+extern char const *sDIAMONDS;
+extern char const *sCLOVER;
+extern char const *KING;
+extern char const *QUEEN;
+extern char const *JACK;
+extern char const *TEN;
+extern char const *ACE;
 
-char const *empty = "";
-char const *header = "C1\tC2\tC3\tC4\tC5\tC6\tC7";
-char const *sSPADE = "S";
-char const *sHEARTS = "H";
-char const *sDIAMONDS = "D";
-char const *sCLOVER = "C";
+extern char *letter;
+extern char *g_msg;
+extern char *pregame_cmd;
+extern char *pregame_arg;
+extern char *card_tmp;
 
-char const *KING = "K";
-char const *QUEEN = "Q";
-char const *JACK = "J";
-char const *TEN = "T";
-char const *ACE = "A";
-char *letter = (char *)malloc(sizeof(char)*2);
-char *g_msg = (char *)malloc(sizeof(char)*100);
-char *pregame_cmd = (char *)malloc(sizeof(char)*3);
-char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
-char *card_tmp = (char *)malloc(sizeof(char)*3);
+enum MSGTYPE {LAST, MESSAGE, INPUT};
+enum COLOR {SPADE, HEARTS, DIAMONDS, CLOVER, NOTFOUND};
 
-
-enum MSGTYPE {LAST, MESSAGE,INPUT};
-enum COLOR {SPADE, HEARTS, DIAMONDS,CLOVER,  NOTFOUND};
 void f_set(int fnum);
+
 char const *int_to_suit(int color);
 
 typedef struct card {
@@ -80,22 +80,19 @@ typedef struct sfoundations {
     column_card **foundations;
 }sfoundations;
 
-card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
-
-sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
-scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
-stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
-sstack stack = {cards_ref}; 
-
-
-scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
+extern card **card_definition_list;
+extern sfoundations *fonds;
+extern scolumns *cols;
+extern stack_card **cards_ref;
+extern sstack stack;
+extern scolumns *copycols;
 
 
 
 //card functions
 void write_name(card **col);
 card **push(card **head_ref, int number, COLOR color);
-card **generate_cards(card **placeholder);
+card **generate_cards(int placeholder);
 column_card *find_card_payload(int idcolumn,int number, char *_color);
 enum COLOR string_to_color(char *color);
 const char *color_to_string(enum COLOR c);
