@@ -86,7 +86,7 @@ int main()
                 {
                     //['C1:A1']
                     char **c = split_move(input, pos);
-                    printf("lhs: %s\t rhs:%s\n", c[0], c[1]);
+                    // printf("lhs: %s\t rhs:%s\n", c[0], c[1]);
                     printf("--------------------\n");
                     move_col_card(c);
                 }
