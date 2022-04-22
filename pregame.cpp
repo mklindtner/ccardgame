@@ -2,6 +2,79 @@
 #define _PREGAME
 #include "headers.h"
 
+void pregame_SI(int split_point)
+{
+    stack_card *stack_left[CARDSIZE - split_point];
+    stack_card *stack_right[split_point];
+
+    int j = 0;
+    for (int i = 0; i < CARDSIZE; i++)
+    {
+        if (i <= split_point)
+        {
+            stack_right[i] = stack.cards_ref[i];
+        }
+        if (i > split_point)
+        {
+            stack_left[j++] = stack.cards_ref[i];
+        }
+    }
+    // printf("--- fordelt bunker ---\n");
+    int l = 0, r = 0, m = 0;
+    for (int k = 0; k < CARDSIZE; k++)
+    {
+        // printf("k: %d\tm: %d\n",k,m);
+        if (stack_right[k] != nullptr)
+        {        
+            stack.cards_ref[m++] = stack_right[r++];
+        }
+ 
+        if (stack_left[k] != nullptr)
+        {
+            stack.cards_ref[m++] = stack_left[l++];
+        }
+    }
+}
+
+
+void SR_shuffle()
+{
+    stack_card *stack_sr[CARDSIZE];
+    stack_sr[0] = stack.cards_ref[0];
+    // printf("---starting loop---\n");
+    for (int i = 1; i < CARDSIZE; i++)
+    {
+        // randomize
+        srand(time(NULL));
+        // printf("---callign rant---\n");
+        int r1 = rand() % i;
+        if (r1 < i)
+        {
+            int j = i;
+            stack_card *tmp;
+            // printf("---inner forloop---\n");
+            for (; j > r1; j--)
+            {
+                // printf("i: %d\t j:%d\n", i,j);
+                stack_sr[j] = stack_sr[j - 1];
+            }
+            stack_sr[r1] = stack.cards_ref[i];
+        }
+        else
+        {
+            stack_sr[r1] = stack.cards_ref[i];
+        }
+    }
+
+    // printf("---stack_sr---\n");
+    for (int k = 0; k < CARDSIZE; k++)
+    {
+        // printf("val: %d, col: %d\n", stack_sr[k]->card->number, stack_sr[k]->card->color);
+        stack.cards_ref[k] = stack_sr[k];
+    }
+    // printf("---stack_sr finished---\n");
+}
+
 void pregame_LD(char *input)
 {
     // printf("arg length: %d\n", (int) strlen(pregame_arg));
@@ -23,9 +96,9 @@ void pregame_LD(char *input)
             int number = letter_to_int(buff[0]);
             COLOR suit = string_to_color(&buff[1]);
             int index = (suit * 13 + number) - 1;
-            card *c = card_definition_list[index];            
+            card *c = card_definition_list[index];
             stack.cards_ref[i]->card = c;
-            i++;            
+            i++;
         } while (!feof(f));
         printf("\nout of loop\n");
         fclose(f);
@@ -38,6 +111,7 @@ void pregame_SD()
     {
         sprintf(pregame_arg, "%s", "cards.txt");
     }
+
     FILE *f = fopen(pregame_arg, "w+");
 
     for (int i = 0; i < CARDSIZE; i++)
@@ -58,6 +132,7 @@ void pregame_SD()
 
     fclose(f);
 }
+
 void pregame_main(char *input)
 {
     // pregame, only relevant if pos is 2 long
@@ -83,6 +158,29 @@ void pregame_main(char *input)
         if (!strcmp(pregame_cmd, "SW"))
         {
             pregame_layout(input, true);
+        }
+
+        if (!strcmp(pregame_cmd, "SR"))
+        {
+            SR_shuffle();
+        }
+
+        if (!strcmp(pregame_cmd, "SI"))
+        {
+            int split_point = -1;
+            if (strlen(pregame_arg) < 1)
+            {
+                srand(time(NULL));
+                split_point = rand() % CARDSIZE;
+                pregame_SI(split_point);
+            }
+            else
+            {
+                split_point = atoi(pregame_arg);
+                // sprintf(pregame_arg, "%d", split_point);
+                // printf("split_point: %d\tpregame_arg :|%s|\n", split_point,pregame_arg);
+                pregame_SI(split_point);
+            }
         }
     }
 }
@@ -132,39 +230,5 @@ void pregame_layout_cards(bool show_cards)
         printf("\n");
     }
 }
-
-// void pregame_layout_cards(bool show_cards)
-// {
-//     printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
-//     // make this ** and contain each element
-//     column_card *c1 = cols->columns[0]->head;
-//     column_card *c2 = cols->columns[1]->head;
-//     column_card *c3 = cols->columns[2]->head;
-//     column_card *c4 = cols->columns[3]->head;
-//     column_card *c5 = cols->columns[4]->head;
-//     column_card *c6 = cols->columns[5]->head;
-//     column_card *c7 = cols->columns[6]->head;
-//     int i = 0, f = 0;
-//     while (c1 != nullptr || c2 != nullptr || c3 != nullptr || c4 != nullptr || c5 != nullptr || c6 != nullptr || c7 != nullptr)
-//     {
-//         c1 = layout_field(c1, 1, 1);
-//         c2 = layout_field(c2, 2, 2);
-//         c3 = layout_field(c3, 3, 3);
-//         c4 = layout_field(c4, 3, 3);
-//         c5 = layout_field(c5, 3, 3);
-//         c6 = layout_field(c6, 3, 3);
-//         c7 = layout_field(c7, 3, 3);
-
-//         i++;
-//         if (i == 1 || i == 3 || i == 5 || i == 7)
-//         {
-//             printf("\t\t");
-//             layout_foundation(f++);
-//             printf("\tF%d", f);
-//         }
-
-//         printf("\n");
-//     }
-// }
 
 #endif

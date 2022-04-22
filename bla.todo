@@ -35,10 +35,12 @@ PLAY
     
 Prelobby
     ☐ loop games
-    ☐ LD <filename>
-    ☐ LD
-    ☐ Turn the cards around in pregame
-
+    ✔ LD <filename> @done(22-04-22 21:33)
+    ✔ LD @done(22-04-22 21:33)
+    ✔ Turn the cards around in pregame @done(22-04-22 21:33)
+    ☐ SI
+    ☐ SR
+    ☐ QQ
 
 General
     ☐ fix status message

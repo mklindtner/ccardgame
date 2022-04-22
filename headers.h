@@ -138,6 +138,8 @@ void pregame_empty();
 void pregame_main(char *input);
 void pregame_LD(char *input, char *pregame_cmd, char *pregame_arg);
 void cut_space(char *input);
+void SR_shuffle();
+void pregame_SI(int split_point);
 
 //game
 void play_game(char *input);
