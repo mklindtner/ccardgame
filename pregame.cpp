@@ -87,7 +87,7 @@ void pregame_LD(char *input)
     {
         char buff[MAX_LENGTH_FILE];
         FILE *f;
-        if(errno_t fo = fopen_s(&f, pregame_arg, "r") != 0)
+        if(int fo = fopen_s(&f, pregame_arg, "r") != 0)
         {
             sprintf(g_msg, "error reading file");
             return;
@@ -120,7 +120,7 @@ void pregame_SD()
     }
 
     FILE *f;
-    if(fopen_s(&f, pregame_arg, "w+") != 0)
+    if(int c = fopen_s(&f, pregame_arg, "w+") != 0)
     {
         sprintf(g_msg, "unable to store file\n");
         return;
