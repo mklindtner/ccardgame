@@ -45,16 +45,17 @@ int main()
     generate_columns();
     initialize_columns();
     start_turn();
+    char firsttime = true;
+    char *input = (char *)malloc(sizeof(char) * 40);
 
     sprintf(g_msg, "");
-    char firsttime = true;
-
-    char *input = (char *)malloc(sizeof(char) * 40);
+    sprintf(input, "");
+    // sprintf(empty, "");
 
     start_layout_table(input);
     while (1)
     {
-        system("clear");
+        // system("clear");
         if(quit_game == true)
         {
             start_layout_table(input);

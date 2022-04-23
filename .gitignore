@@ -1,5 +1,6 @@
 #binary executable
 a.out
+a.exe
 
 # Prerequisites
 *.d

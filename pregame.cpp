@@ -4,7 +4,7 @@
 
 void pregame_SI(int split_point)
 {
-    stack_card *stack_left[CARDSIZE - split_point];
+    stack_card *stack_left[(CARDSIZE - split_point)];
     stack_card *stack_right[split_point];
 
     int j = 0;
@@ -86,7 +86,13 @@ void pregame_LD(char *input)
     else
     {
         char buff[MAX_LENGTH_FILE];
-        FILE *f = fopen(pregame_arg, "r");
+        FILE *f;
+        if(errno_t fo = fopen_s(&f, pregame_arg, "r") != 0)
+        {
+            sprintf(g_msg, "error reading file");
+            return;
+        }
+
         char *reader = nullptr;
         int i = 0;
         // card *head = stack.cards_ref[0]->card;
@@ -101,6 +107,7 @@ void pregame_LD(char *input)
             i++;
         } while (!feof(f));
         printf("\nout of loop\n");
+
         fclose(f);
     }
 }
@@ -112,7 +119,12 @@ void pregame_SD()
         sprintf(pregame_arg, "%s", "cards.txt");
     }
 
-    FILE *f = fopen(pregame_arg, "w+");
+    FILE *f;
+    if(fopen_s(&f, pregame_arg, "w+") != 0)
+    {
+        sprintf(g_msg, "unable to store file\n");
+        return;
+    }
 
     for (int i = 0; i < CARDSIZE; i++)
     {
