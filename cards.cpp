@@ -179,7 +179,7 @@ int placearray[CARDSIZE] = {
 
 
 
-// generate_cards must be called first, ideally also shuffle_cards
+// generate_cards must be called first
 void initialize_columns()
 {
     for (int i = 0; i < CARDSIZE; i++)
@@ -230,6 +230,12 @@ void swap_stack_card(int r1, int r2)
     stack_card *tmp = stack.cards_ref[r1];
     stack.cards_ref[r1] = stack.cards_ref[r2];
     stack.cards_ref[r2] = tmp;
+}
+
+void setup_cards()
+{
+    //testing for C2->F1 (put 2S unto AS)
+    swap_stack_card(1, 31);
 }
 
 // this is shuffle deck

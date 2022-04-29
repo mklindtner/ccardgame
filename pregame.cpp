@@ -4,8 +4,14 @@
 
 void pregame_SI(int split_point)
 {
-    stack_card *stack_left[(CARDSIZE - split_point)];
-    stack_card *stack_right[split_point];
+    stack_card *stack_left[CARDSIZE];
+    stack_card *stack_right[CARDSIZE];
+
+    for(int i = 0; i < CARDSIZE; i++)
+    {
+        stack_left[i] = nullptr;
+        stack_right[i] = nullptr;
+    }
 
     int j = 0;
     for (int i = 0; i < CARDSIZE; i++)
@@ -13,7 +19,7 @@ void pregame_SI(int split_point)
         if (i <= split_point)
         {
             stack_right[i] = stack.cards_ref[i];
-        }
+        } 
         if (i > split_point)
         {
             stack_left[j++] = stack.cards_ref[i];
@@ -35,20 +41,6 @@ void pregame_SI(int split_point)
         }
     }
 }
-
-// col1 represents the number of column
-int placearray2[CARDSIZE] = {
-    1, 2, 3, 4, 5, 6, 7,
-    2, 3, 4, 5, 6, 7,
-    2, 3, 4, 5, 6, 7,
-    2, 3, 4, 5, 6, 7,
-    2, 3, 4, 5, 6, 7,
-    2, 3, 4, 5, 6, 7,
-    3, 4, 5, 6, 7,
-    4, 5, 6, 7,
-    5, 6, 7,
-    6, 7,
-    7};
 
 void SR_shuffle()
 {
@@ -78,36 +70,12 @@ void SR_shuffle()
             stack_sr[r1] = stack.cards_ref[i];
         }
     }
-    printf("--heads before--\n");
-    for (int i = 0; i < 7; i++)
-    {
-        printf("head: %d\t number: %d\t col: %d\n", i, cols->columns[i]->head->stack_card->card->number, cols->columns[i]->head->stack_card->card->color);
-        cols->columns[i]->head->stack_card = nullptr;
-    }
 
     for (int k = 0; k < CARDSIZE; k++)
     {
-
-        // printf("val: %d, col: %d\n", stack_sr[k]->card->number, stack_sr[k]->card->color);
-        // stack.cards_ref[k] = stack_sr[k];
-        // column_card *cc = cols->columns[placearray2[k] - 1];
-        // if(cc->head->stack_card == nullptr)
-        // {
-        //     cc->head->stack_card = stack.cards_ref[k];
-        // }
+        stack.cards_ref[k] = stack_sr[k];
     }
 
-    printf("--heads after--\n");
-    for (int i = 0; i < 7; i++)
-    {
-        column_card *c = cols->columns[i]->head;
-
-        printf("head: %d\t number: %d\t col: %d\n", i, cols->columns[i]->head->stack_card->card->number, cols->columns[i]->head->stack_card->card->color);
-    }
-
-    // printf("---stack_sr finished---\n");
-
-    // set stack to match columns
 }
 
 /**
@@ -237,6 +205,7 @@ bool pregame_main(char *input)
             {
                 srand(time(NULL));
                 split_point = rand() % CARDSIZE;
+                printf("split_point: %d\n", split_point);
                 pregame_SI(split_point);
             }
             else
@@ -255,7 +224,7 @@ bool pregame_main(char *input)
         {
             quit = true;
             return 0;
-        }        
+        }
     }
     return 1;
 }

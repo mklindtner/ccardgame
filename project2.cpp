@@ -35,21 +35,16 @@ char quit_game = false;
 int main()
 {
     card **cards = generate_cards(0);
-    shuffle_stack();
     generate_columns();
-    initialize_columns();
-    start_turn();
     char firsttime = true;
     char *input = (char *)malloc(sizeof(char) * 40);
 
     sprintf(g_msg, "");
     sprintf(input, "");
-    // sprintf(empty, "");
 
     start_layout_table(input);
     while (1)
     {
-        // system("clear");
         if(quit_game == true)
         {
             start_layout_table(input);
@@ -70,6 +65,12 @@ int main()
         // play mode
         if (!strcmp(input, "P"))
         {
+            setup_cards();
+            start_turn();
+            initialize_columns();
+            // shuffle_stack();
+            //test method for changing deck order
+            sprintf(g_msg,"OK");
             while (1)
             {
                 layout_tableau();

@@ -145,6 +145,7 @@ void pregame_SI(int split_point);
 
 //game
 void play_game(char *input);
+void setup_cards();
 
 #endif
 

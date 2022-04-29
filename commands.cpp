@@ -117,6 +117,7 @@ void move_col_card(char **input)
         // validate any other card
         if (validate_move_foundation(to_foundation, cchead->stack_card->card))
         {
+            printf("foundation is not empty, validation failed\n");
             sprintf(g_msg, "Illegal move");
             return;
         }
@@ -153,7 +154,10 @@ void move_col_card(char **input)
 char validate_move_foundation(int to_foundation, card *cvalidate)
 {
     card *chead = fonds->foundations[to_foundation]->head->stack_card->card;
-    if ((cvalidate->color == chead->color) && (chead->number == cvalidate->number + 1))
+    printf("chead: number:%d\t color: %d\n", chead->number, chead->color);
+    printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);
+
+    if ((cvalidate->color == chead->color) && (chead->number + 1 == cvalidate->number))
     {
         return 0;
     }
@@ -258,9 +262,9 @@ char *lhss_pad_card(char *lhss)
     char cc[2];
     sprintf(cholor, "%s", color_to_string(suit));
     char const *ccnum = int_to_letter(cnum);
-    printf("lhs:|%s|\tccnum:|%s|\tcholor:|%s|", lhss,ccnum, cholor);
+    // printf("lhs:|%s|\tccnum:|%s|\tcholor:|%s|", lhss,ccnum, cholor);
     snprintf(new_lhss, sizeof(new_lhss), "%s:%s%s", lhss, ccnum, cholor);
 
-    printf("combined: |%s|\n", new_lhss);
+    // printf("combined: |%s|\n", new_lhss);
     return new_lhss;
 }
