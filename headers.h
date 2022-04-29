@@ -137,7 +137,7 @@ char validate_move_foundation(int to_foundation, card *cvalidate);
 void pregame_layout(char *input, bool show_cards);
 void pregame_layout_cards(bool show_cards);
 void pregame_empty();
-void pregame_main(char *input);
+bool pregame_main(char *input);
 void pregame_LD(char *input, char *pregame_cmd, char *pregame_arg);
 void cut_space(char *input);
 void SR_shuffle();
