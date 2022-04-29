@@ -59,7 +59,8 @@ void move_col_card(char **input)
         // empty column
         if (cols->columns[to_column]->head == nullptr)
         {
-            if (fonds->foundations[from_foundation]->head->stack_card->card->number == 1)
+            printf("in empty\n");
+            if (fonds->foundations[from_foundation]->head->stack_card->card->number == 13)
             {
                 cols->columns[to_column]->head = fonds->foundations[from_foundation]->head;
                 fonds->foundations[from_foundation]->head = nullptr;
@@ -70,8 +71,7 @@ void move_col_card(char **input)
         }
 
         if (!validate_move(to_column, fonds->foundations[from_foundation]->head->stack_card->card))
-        {
-
+        {            
             column_card *fcnext = fonds->foundations[from_foundation]->head->next;
             printf("before fc\n");
             // move foundation head to column head
@@ -83,6 +83,7 @@ void move_col_card(char **input)
             // foundation head move
             fonds->foundations[from_foundation]->head = fcnext;
         }
+        printf("returning from column\n");
         return;
     }
 
@@ -125,15 +126,24 @@ void move_col_card(char **input)
     }
 
     int from_column = atoi(&cfnum) - 1;
-
+    // printf("moving payload\n");
     column_card *mv_ccard = find_card_payload(from_column, number_card, color_card);
+    // printf("finished moving payload\n");
+
     if (mv_ccard != nullptr)
     {
+        printf("--validating--\n");
+        // printf("to_column: %d\t card num: %d\t card col:%d\n", to_column, mv_ccard->stack_card->card->number, mv_ccard->stack_card->card->color);
         if (!validate_move(to_column, mv_ccard->stack_card->card))
         {
-            transfer_column(from_column, to_column, mv_ccard);
+            printf("transfering\n");
+            transfer_column(from_column, to_column, mv_ccard);            
         }
+    } else {
+        printf("mv_card is null\n");
     }
+
+    printf("finished move_col_card\n");
 }
 
 char validate_move_foundation(int to_foundation, card *cvalidate)
@@ -149,9 +159,24 @@ char validate_move_foundation(int to_foundation, card *cvalidate)
 
 char validate_move(int to_column, card *cvalidate)
 {
-    card *chead = cols->columns[to_column]->head->stack_card->card;
-    if ((cvalidate->color != chead->color) && (chead->number - 1 == cvalidate->number))
+    printf("before cols\n");
+    column_card *cc = cols->columns[to_column]->head;
+    if(cc == nullptr)
     {
+        //validate if kings
+        if(cvalidate->number == 13 || cvalidate->number == 26 || cvalidate->number == 39 || cvalidate->number == 52)
+        {
+            printf("validated input\n");
+            return 0;
+        }
+        return 1;
+    }
+
+    card *chead = cols->columns[to_column]->head->stack_card->card;
+    printf("after cols\n");
+    if ((cvalidate->color != chead->color) && ( (chead->number - 1) == cvalidate->number))
+    {
+        printf("accepted\n");
         return 0;
     }
     sprintf(g_msg, "Illegal move");
@@ -170,14 +195,18 @@ char **split_move(char *input, char *pos)
     char *rhss = (char *)malloc(d2);
 
     // get LHS of str
-    for (int i = 0; i < lsize; i++)
+    int i;
+    for (i = 0; i < lsize; i++)
     {
         // printf("lhs char: %c\n", input[i]);
         lhss[i] = input[i];
     }
+    lhss[i++] = '\0';
 
     // printf("---\n");
     int idx = 0;
+
+    // printf("length of input: %d\t lsize: %d\n", (int) strlen(input), (int) lsize);
 
     // get RHS of str
     for (int j = lsize + 2; j < strlen(input); j++)
@@ -185,8 +214,11 @@ char **split_move(char *input, char *pos)
         // printf("rhs char: %c\n", input[j]);
         rhss[idx++] = input[j];
     }
-    char **splits = (char **)malloc(sizeof(char *) * 2);
+    rhss[idx] = '\0';
 
+    // printf("after reading, lhs: |%s|\trhs:|%s|\n",lhss, rhss);
+
+    char **splits = (char **)malloc(sizeof(char *) * 3);
     // C1->C2, C1->F1 = C1:A1->F1, F1->C1 = F1:A4->C1
     if (strlen(lhss) == 2 && strncmp(&lhss[0], "F", 1))
     {
@@ -200,10 +232,11 @@ char **split_move(char *input, char *pos)
     // printf("\nsize of rhss: %d\n", d2);
     // printf("\nrhss:|%s|\n", rhss);
     // printf("\nlhss:|%s|\n", lhss);
+    // printf("before final, lhs: |%s|\trhs:|%s|\n",lhss, rhss);
 
     splits[0] = lhss;
     splits[1] = rhss;
-    // printf("final lhs: %s\trhs:%s\n",splits[0],splits[1]);
+    // printf("final lhs: |%s|\trhs:|%s|\n",splits[0],splits[1]);
 
     return splits;
 }
@@ -221,8 +254,9 @@ char *lhss_pad_card(char *lhss)
     char cc[2];
     sprintf(cholor, "%s", color_to_string(suit));
     char const *ccnum = int_to_letter(cnum);
+    printf("lhs:|%s|\tccnum:|%s|\tcholor:|%s|", lhss,ccnum, cholor);
     snprintf(new_lhss, sizeof(new_lhss), "%s:%s%s", lhss, ccnum, cholor);
 
-    // printf("|%s|\n", new_lhss);
+    printf("combined: |%s|\n", new_lhss);
     return new_lhss;
 }

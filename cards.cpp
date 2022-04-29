@@ -8,9 +8,7 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
 {
     //convert char to enum
     COLOR color = string_to_color(_color);
-
-    //check whether foundation/column here
-    
+    // printf("after string_to_color\n");
     column_card *column_card = cols->columns[idcolumn]->head;
     // printf("looking for colid: %d\t number: %d\tcolor: %d\n",idcolumn, number, color);
     while(column_card != nullptr)
@@ -25,6 +23,7 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
         }    
         column_card = column_card->next;
     }
+    printf("card not found\n");
     sprintf(g_msg, "CARD NOT FOUND");
     return nullptr;
 }

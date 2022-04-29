@@ -1,11 +1,5 @@
 #include <stdio.h>
 #include "headers.h"
-/**
-#include "mainwindow.cpp"
-#include "cards.cpp"
-#include "commands.cpp"
-#include "pregame.cpp"
-*/
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
@@ -72,6 +66,7 @@ int main()
         {
             break;
         }
+
         // play mode
         if (!strcmp(input, "P"))
         {
@@ -96,7 +91,7 @@ int main()
                 {
                     //['C1:A1']
                     char **c = split_move(input, pos);
-                    // printf("lhs: %s\t rhs:%s\n", c[0], c[1]);
+                    // printf("lhs: |%s|\t rhs:|%s|\n", c[0], c[1]);
                     printf("--------------------\n");
                     move_col_card(c);
                 }
@@ -109,7 +104,7 @@ int main()
 
 void cut_space(char *input)
 {
-    // printf("input before cut: |%s|\n", pos, input);
+    // printf("input before cut: |%s|\n", input);
     if ((strlen(input) > 0) && (input[strlen(input) - 1] == '\n'))
     {
         input[strlen(input) - 1] = '\0';
