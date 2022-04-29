@@ -177,6 +177,8 @@ int placearray[CARDSIZE] = {
     6, 7,
     7};
 
+
+
 // generate_cards must be called first, ideally also shuffle_cards
 void initialize_columns()
 {

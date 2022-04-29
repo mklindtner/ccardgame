@@ -25,10 +25,10 @@ void pregame_SI(int split_point)
     {
         // printf("k: %d\tm: %d\n",k,m);
         if (stack_right[k] != nullptr)
-        {        
+        {
             stack.cards_ref[m++] = stack_right[r++];
         }
- 
+
         if (stack_left[k] != nullptr)
         {
             stack.cards_ref[m++] = stack_left[l++];
@@ -36,6 +36,19 @@ void pregame_SI(int split_point)
     }
 }
 
+// col1 represents the number of column
+int placearray2[CARDSIZE] = {
+    1, 2, 3, 4, 5, 6, 7,
+    2, 3, 4, 5, 6, 7,
+    2, 3, 4, 5, 6, 7,
+    2, 3, 4, 5, 6, 7,
+    2, 3, 4, 5, 6, 7,
+    2, 3, 4, 5, 6, 7,
+    3, 4, 5, 6, 7,
+    4, 5, 6, 7,
+    5, 6, 7,
+    6, 7,
+    7};
 
 void SR_shuffle()
 {
@@ -65,14 +78,38 @@ void SR_shuffle()
             stack_sr[r1] = stack.cards_ref[i];
         }
     }
+    printf("--heads before--\n");    
+    for(int i = 0; i < 7; i++)
+    {        
+        printf("head: %d\t number: %d\t col: %d\n", i, cols->columns[i]->head->stack_card->card->number, cols->columns[i]->head->stack_card->card->color);
+        cols->columns[i]->head->stack_card = nullptr;
+    }
 
-    // printf("---stack_sr---\n");
     for (int k = 0; k < CARDSIZE; k++)
     {
+        
         // printf("val: %d, col: %d\n", stack_sr[k]->card->number, stack_sr[k]->card->color);
-        stack.cards_ref[k] = stack_sr[k];
+        // stack.cards_ref[k] = stack_sr[k];          
+        // column_card *cc = cols->columns[placearray2[k] - 1];      
+        // if(cc->head->stack_card == nullptr)
+        // {
+        //     cc->head->stack_card = stack.cards_ref[k];
+        // }
     }
+
+    printf("--heads after--\n");
+    for(int i = 0; i < 7; i++)
+    {
+        column_card *c = cols->columns[i]->head;
+        
+        printf("head: %d\t number: %d\t col: %d\n", i, cols->columns[i]->head->stack_card->card->number, cols->columns[i]->head->stack_card->card->color);
+    }
+
+
+    
     // printf("---stack_sr finished---\n");
+
+    // set stack to match columns
 }
 
 void pregame_LD(char *input)
@@ -87,7 +124,7 @@ void pregame_LD(char *input)
     {
         char buff[MAX_LENGTH_FILE];
         FILE *f;
-        if(int fo = fopen_s(&f, pregame_arg, "r") != 0)
+        if (int fo = fopen_s(&f, pregame_arg, "r") != 0)
         {
             sprintf(g_msg, "error reading file");
             return;
@@ -120,7 +157,7 @@ void pregame_SD()
     }
 
     FILE *f;
-    if(int c = fopen_s(&f, pregame_arg, "w+") != 0)
+    if (int c = fopen_s(&f, pregame_arg, "w+") != 0)
     {
         sprintf(g_msg, "unable to store file\n");
         return;
@@ -175,6 +212,8 @@ void pregame_main(char *input)
         if (!strcmp(pregame_cmd, "SR"))
         {
             SR_shuffle();
+            // printf("---layout---\n");
+            pregame_layout(input, true);
         }
 
         if (!strcmp(pregame_cmd, "SI"))
@@ -195,7 +234,7 @@ void pregame_main(char *input)
             }
         }
 
-        if(!strcmp(pregame_cmd, "QQ"))
+        if (!strcmp(pregame_cmd, "QQ"))
         {
             quit = true;
         }

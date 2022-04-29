@@ -64,7 +64,7 @@ void layout_tableau()
 {
     printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     reversell();
-    // make this ** and contain each element
+
     column_card *c1 = cols->columns[0]->head;
     column_card *c2 = cols->columns[1]->head;
     column_card *c3 = cols->columns[2]->head;
