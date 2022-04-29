@@ -36,7 +36,9 @@ void pregame_SI(int split_point)
     }
 }
 
-
+/**
+ * Shuffles the deck
+ */
 void SR_shuffle()
 {
     stack_card *stack_sr[CARDSIZE];
@@ -75,6 +77,10 @@ void SR_shuffle()
     // printf("---stack_sr finished---\n");
 }
 
+/**
+ * Loads a saved deck file
+ * @param input The file to be loaded
+ */
 void pregame_LD(char *input)
 {
     // printf("arg length: %d\n", (int) strlen(pregame_arg));
@@ -112,6 +118,9 @@ void pregame_LD(char *input)
     }
 }
 
+/**
+ * Saves the current deck as a .txt file
+ */
 void pregame_SD()
 {
     if (strlen(pregame_arg) < 1)
@@ -145,7 +154,7 @@ void pregame_SD()
     fclose(f);
 }
 
-void pregame_main(char *input)
+bool pregame_main(char *input)
 {
     // pregame, only relevant if pos is 2 long
     //  printf("input is:|%s|\n",input);
@@ -160,21 +169,32 @@ void pregame_main(char *input)
         if (!strcmp(pregame_cmd, "LD"))
         {
             pregame_LD(input);
+            sprintf(g_msg, "OK");
+            pregame_layout(input, true);
+            return 0;
         }
 
         if (!strcmp(pregame_cmd, "SD"))
         {
             pregame_SD();
+            sprintf(g_msg, "OK");
+            pregame_layout(input, false);
+            return 0;
         }
 
         if (!strcmp(pregame_cmd, "SW"))
         {
+            sprintf(g_msg, "OK");
             pregame_layout(input, true);
+            return 0;
         }
 
         if (!strcmp(pregame_cmd, "SR"))
         {
             SR_shuffle();
+            sprintf(g_msg, "OK");
+            pregame_layout(input, false);
+            return 0;
         }
 
         if (!strcmp(pregame_cmd, "SI"))
@@ -193,12 +213,17 @@ void pregame_main(char *input)
                 // printf("split_point: %d\tpregame_arg :|%s|\n", split_point,pregame_arg);
                 pregame_SI(split_point);
             }
+            sprintf(g_msg, "OK");
+            pregame_layout(input, false);
+            return 0;
         }
 
         if(!strcmp(pregame_cmd, "QQ"))
         {
             quit = true;
+            return 0;
         }
+        return 1;
     }
 }
 

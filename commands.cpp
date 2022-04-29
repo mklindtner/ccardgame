@@ -64,6 +64,7 @@ void move_col_card(char **input)
             {
                 cols->columns[to_column]->head = fonds->foundations[from_foundation]->head;
                 fonds->foundations[from_foundation]->head = nullptr;
+                sprintf(g_msg, "OK");
                 return;
             }
             sprintf(g_msg, "Illegal move");
@@ -109,6 +110,7 @@ void move_col_card(char **input)
             fonds->foundations[to_foundation]->head = cchead;
 
             cols->columns[from_column]->head = ccnext;
+            sprintf(g_msg, "OK");
             return;
         }
 
@@ -122,6 +124,7 @@ void move_col_card(char **input)
         fonds->foundations[to_foundation]->head = cchead;
 
         cols->columns[from_column]->head = ccnext;
+        sprintf(g_msg, "OK");
         return;
     }
 
@@ -137,7 +140,8 @@ void move_col_card(char **input)
         if (!validate_move(to_column, mv_ccard->stack_card->card))
         {
             printf("transfering\n");
-            transfer_column(from_column, to_column, mv_ccard);            
+            transfer_column(from_column, to_column, mv_ccard);
+            sprintf(g_msg, "OK");
         }
     } else {
         printf("mv_card is null\n");

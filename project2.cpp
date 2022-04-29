@@ -39,7 +39,6 @@ int main()
     generate_columns();
     initialize_columns();
     start_turn();
-    char firsttime = true;
     char *input = (char *)malloc(sizeof(char) * 40);
 
     sprintf(g_msg, "");
@@ -61,7 +60,7 @@ int main()
         char *pos = strstr(input, "->");
         cut_space(input);
 
-        pregame_main(input);
+        bool action = !pregame_main(input);
         if(quit == true)
         {
             break;
@@ -70,6 +69,7 @@ int main()
         // play mode
         if (!strcmp(input, "P"))
         {
+            sprintf(g_msg, "OK");
             while (1)
             {
                 layout_tableau();
@@ -95,6 +95,15 @@ int main()
                     printf("--------------------\n");
                     move_col_card(c);
                 }
+            }
+            sprintf(g_msg, "OK");
+        }
+        else
+        {
+            if (action == false && quit == false)
+            {
+                sprintf(g_msg, "Unknown command");
+                pregame_layout(input, false);
             }
         }
     }
