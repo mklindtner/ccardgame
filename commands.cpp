@@ -21,9 +21,6 @@ void transfer_column(int from_column, int to_column, column_card *movecc)
     mvnext->stack_card->isturned = 1;
 }
 
-// lhss: C1:4C
-// rhss: C2
-// total: C1->F2, C1:A4->C2, F1->C3
 void move_col_card(char **input)
 {
     // printf("top of move\n");
@@ -145,10 +142,11 @@ void move_col_card(char **input)
             sprintf(g_msg, "OK");
         }
     } else {
-        printf("mv_card is null\n");
+        // printf("mv_card is null\n");
     }
 
     // printf("finished move_col_card\n");
+    // sprintf(g_msg, "Unknown Command");
 }
 
 char validate_move_foundation(int to_foundation, card *cvalidate)

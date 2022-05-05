@@ -66,7 +66,7 @@ int main()
         // play mode
         if (!strcmp(input, "P"))
         {
-            setup_cards();
+            setup_cards(); //use this for debugging
             start_turn();
             initialize_columns();
             // shuffle_stack();
@@ -96,8 +96,10 @@ int main()
                     char **c = split_move(input, pos);
                     // printf("lhs: |%s|\t rhs:|%s|\n", c[0], c[1]);
                     printf("--------------------\n");
-                    move_col_card(c);
-                }
+                    move_col_card(c);                    
+                } else {
+                    sprintf(g_msg, "Unknown command");
+                }                
             }
         }
         else {
