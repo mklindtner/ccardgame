@@ -74,7 +74,7 @@ void move_col_card(char **input)
         if (!validate_move(to_column, fonds->foundations[from_foundation]->head->stack_card->card))
         {            
             column_card *fcnext = fonds->foundations[from_foundation]->head->next;
-            printf("before fc\n");
+            // printf("before fc\n");
             // move foundation head to column head
             column_card *fc = fonds->foundations[from_foundation]->head;
 
@@ -84,7 +84,7 @@ void move_col_card(char **input)
             // foundation head move
             fonds->foundations[from_foundation]->head = fcnext;
         }
-        printf("returning from column\n");
+        // printf("returning from column\n");
         return;
     }
 
@@ -117,7 +117,7 @@ void move_col_card(char **input)
         // validate any other card
         if (validate_move_foundation(to_foundation, cchead->stack_card->card))
         {
-            printf("foundation is not empty, validation failed\n");
+            // printf("foundation is not empty, validation failed\n");
             sprintf(g_msg, "Illegal move");
             return;
         }
@@ -136,11 +136,11 @@ void move_col_card(char **input)
 
     if (mv_ccard != nullptr)
     {
-        printf("--validating--\n");
+        // printf("--validating--\n");
         // printf("to_column: %d\t card num: %d\t card col:%d\n", to_column, mv_ccard->stack_card->card->number, mv_ccard->stack_card->card->color);
         if (!validate_move(to_column, mv_ccard->stack_card->card))
         {
-            printf("transfering\n");
+            // printf("transfering\n");
             transfer_column(from_column, to_column, mv_ccard);
             sprintf(g_msg, "OK");
         }
@@ -148,14 +148,14 @@ void move_col_card(char **input)
         printf("mv_card is null\n");
     }
 
-    printf("finished move_col_card\n");
+    // printf("finished move_col_card\n");
 }
 
 char validate_move_foundation(int to_foundation, card *cvalidate)
 {
     card *chead = fonds->foundations[to_foundation]->head->stack_card->card;
-    printf("chead: number:%d\t color: %d\n", chead->number, chead->color);
-    printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);
+    // printf("chead: number:%d\t color: %d\n", chead->number, chead->color);
+    // printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);
 
     if ((cvalidate->color == chead->color) && (chead->number + 1 == cvalidate->number))
     {
@@ -167,7 +167,7 @@ char validate_move_foundation(int to_foundation, card *cvalidate)
 
 char validate_move(int to_column, card *cvalidate)
 {
-    printf("before cols\n");
+    // printf("before cols\n");
     column_card *cc = cols->columns[to_column]->head;
     if(cc == nullptr)
     {
@@ -181,10 +181,10 @@ char validate_move(int to_column, card *cvalidate)
     }
 
     card *chead = cols->columns[to_column]->head->stack_card->card;
-    printf("after cols\n");
+    // printf("after cols\n");
     if ((cvalidate->color != chead->color) && ( (chead->number - 1) == cvalidate->number))
     {
-        printf("accepted\n");
+        // printf("accepted\n");
         return 0;
     }
     sprintf(g_msg, "Illegal move");

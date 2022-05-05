@@ -52,7 +52,7 @@ typedef struct card {
     struct card *next;
 }card;
 
-//row in stack
+//element in a stack_deck
 typedef struct stack_card {
     int id;
     // bool ondeck;
@@ -60,7 +60,7 @@ typedef struct stack_card {
     card *card;
 }stack_card;
 
-
+//stack_deck
 typedef struct sstack {
     stack_card **cards_ref;
 }sstack;
@@ -72,8 +72,8 @@ typedef struct column_card {
     struct column_card *head;    
 }column_card;
 
-//7 columns
-//array for columns
+
+//stack columns
 typedef struct scolumns {
     column_card **columns; 
 }scolumns;

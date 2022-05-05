@@ -23,6 +23,7 @@ char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
 char *card_tmp = (char *)malloc(sizeof(char)*3);
 
 card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
+//s = stack
 sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
 scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
 stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
@@ -86,6 +87,7 @@ int main()
                 if (!strcmp(input, "Q"))
                 {
                     quit_game = true;
+                    
                     break;
                 }
                 if (pos)

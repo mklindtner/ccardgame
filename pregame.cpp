@@ -102,7 +102,6 @@ void pregame_LD(char *input)
 
         char *reader = nullptr;
         int i = 0;
-        // card *head = stack.cards_ref[0]->card;
         do
         {
             fgets(buff, MAX_LENGTH_FILE, f);
@@ -113,7 +112,7 @@ void pregame_LD(char *input)
             stack.cards_ref[i]->card = c;
             i++;
         } while (!feof(f));
-        printf("\nout of loop\n");
+        // printf("\nout of loop\n");
 
         fclose(f);
     }
@@ -127,6 +126,7 @@ void pregame_SD()
     if (strlen(pregame_arg) < 1)
     {
         sprintf(pregame_arg, "%s", "cards.txt");
+        printf("pregame arg < 1 : %s", pregame_arg);
     }
 
     FILE *f;
@@ -171,7 +171,7 @@ bool pregame_main(char *input)
         {
             pregame_LD(input);
             sprintf(g_msg, "OK");
-            pregame_layout(input, true);
+            pregame_layout(input, false);
             return 0;
         }
 

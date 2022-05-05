@@ -1,1 +1,1 @@
-project2.cpp cards.cpp commands.cpp game.cpp mainwindow.cpp pregame.cpp updatewindow.cpp
+clang project2.cpp cards.cpp commands.cpp game.cpp mainwindow.cpp pregame.cpp updatewindow.cpp
