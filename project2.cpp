@@ -23,11 +23,11 @@ char *pregame_arg = (char *)malloc(sizeof(char)*MAX_INPUT_SZ-2);
 char *card_tmp = (char *)malloc(sizeof(char)*3);
 
 card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
-//s = stack
+stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
+
+sstack stack = {cards_ref};
 sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
 scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
-stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
-sstack stack = {cards_ref};
 scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
 
 char quit = false;
@@ -57,7 +57,7 @@ int main()
         char *pos = strstr(input, "->");
         cut_space(input);
 
-        bool action = !pregame_main(input);
+        bool action = pregame_main(input);
         if(quit == true)
         {
             break;
@@ -101,7 +101,7 @@ int main()
             }
         }
         else {
-            if(action == false && quit == false)
+            if(action == true && quit == false)
             {
                 sprintf(g_msg, "Unknown command");
                 pregame_layout(input, false);

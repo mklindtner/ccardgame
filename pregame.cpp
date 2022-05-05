@@ -171,7 +171,7 @@ bool pregame_main(char *input)
         {
             pregame_LD(input);
             sprintf(g_msg, "OK");
-            pregame_layout(input, false);
+            // pregame_layout(input, false);
             return 0;
         }
 
