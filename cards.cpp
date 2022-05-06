@@ -201,6 +201,8 @@ void push_stack_to_column(stack_card *sc, column_card *col)
     {
         tmp = col->head;
         cc->next = tmp;
+    } else {
+        printf("<<setting new head>>\n");
     }
     col->head = cc;
 }

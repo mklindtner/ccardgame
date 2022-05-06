@@ -38,6 +38,7 @@ int main()
     card **cards = generate_cards(0);
     generate_columns();
     char *input = (char *)malloc(sizeof(char) * 40);
+    bool first_time = true;
 
     sprintf(g_msg, "");
     sprintf(input, "");
@@ -63,8 +64,14 @@ int main()
 
         // play mode
         if (!strcmp(input, "P"))
-        {
-            setup_cards(); //use this for debugging
+        {      
+            // if(first_time == true)
+            // {
+            //     first_time = false;
+            //     release_memory();
+            // }      
+            // generate_columns();
+            setup_cards(); //use this for debugging            
             start_turn();
             initialize_columns();
             //test method for changing deck order
@@ -83,7 +90,7 @@ int main()
 
                 if (!strcmp(input, "Q"))
                 {
-                    // release_memory();
+                    release_memory();
                     quit_game = true;                    
                     break;
                 }

@@ -88,6 +88,7 @@ void pregame_LD(char *input)
     if (strlen(pregame_arg) < 1)
     {
         // shuffle_stack();
+        // make a new unshuffled deck here
         pregame_layout(input, false);
     }
     else
@@ -97,6 +98,7 @@ void pregame_LD(char *input)
         if (int fo = fopen_s(&f, pregame_arg, "r") != 0)
         {
             sprintf(g_msg, "error reading file");
+            pregame_layout(input, false);
             return;
         }
 
@@ -115,6 +117,7 @@ void pregame_LD(char *input)
         // printf("\nout of loop\n");
 
         fclose(f);
+        // pregame_layout(input, false);
     }
 }
 
