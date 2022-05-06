@@ -12,20 +12,24 @@ void release_memory()
         // printf("--column--\n");
         while(head != NULL)
         {
-            // printf("<<<<<<<<HERE>>>>>>>>>>>>>>>\n");
-            tmp = head;            
+            // printf("<<<<<<<<HERE>>>>>>>>>>>>>>>\n");            
+            tmp = head;       
+            // tmp->stack_card = nullptr;     
             head = head->next;
-            free(tmp);
-        }
+            free(tmp);            
+        }        
+        cols->columns[i]->head = nullptr;
     }
    
-    printf("head: %d\n", cols->columns[0]->head->stack_card->isturned);
+    // printf("head: %d\n", cols->columns[0]->head->stack_card->isturned);
 
     printf("--freeing stack--\n");
     for(int i = 0; i < CARDSIZE; i++)
     {
-        free(stack.cards_ref[i]);        
+        free(stack.cards_ref[i]);
+        // stack.cards_ref[i] = nullptr;        
     }            
+    
     printf("stack id : %d\n", stack.cards_ref[0]->id);
 
     // free(cols->columns);

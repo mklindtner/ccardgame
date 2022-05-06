@@ -90,7 +90,7 @@ int main()
 
                 if (!strcmp(input, "Q"))
                 {
-                    release_memory();
+                    // release_memory();
                     quit_game = true;                    
                     break;
                 }
