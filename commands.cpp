@@ -122,6 +122,7 @@ void move_col_card(char **input)
         fonds->foundations[to_foundation]->head = cchead;
 
         cols->columns[from_column]->head = ccnext;
+        ccnext->stack_card->isturned = 1;
         sprintf(g_msg, "OK");
         return;
     }
@@ -144,16 +145,13 @@ void move_col_card(char **input)
     } else {
         // printf("mv_card is null\n");
     }
-
-    // printf("finished move_col_card\n");
-    // sprintf(g_msg, "Unknown Command");
 }
 
 char validate_move_foundation(int to_foundation, card *cvalidate)
 {
     card *chead = fonds->foundations[to_foundation]->head->stack_card->card;
     // printf("chead: number:%d\t color: %d\n", chead->number, chead->color);
-    // printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);
+    // printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);    
 
     if ((cvalidate->color == chead->color) && (chead->number + 1 == cvalidate->number))
     {

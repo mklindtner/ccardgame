@@ -24,8 +24,8 @@ char *card_tmp = (char *)malloc(sizeof(char)*3);
 
 card **card_definition_list = (card **)malloc(sizeof(card *)*CARDSIZE);
 stack_card **cards_ref = (stack_card **)malloc(sizeof(stack_card)*CARDSIZE);
-
 sstack stack = {cards_ref};
+
 sfoundations *fonds = (sfoundations *)malloc(sizeof(sfoundations));
 scolumns *cols = (scolumns *)malloc(sizeof(scolumns));
 scolumns *copycols = (scolumns *)malloc(sizeof(scolumns));
@@ -37,7 +37,6 @@ int main()
 {
     card **cards = generate_cards(0);
     generate_columns();
-    char firsttime = true;
     char *input = (char *)malloc(sizeof(char) * 40);
 
     sprintf(g_msg, "");
@@ -54,7 +53,6 @@ int main()
         sprintf(g_msg, "");
 
         fgets(input, MAX_INPUT_SZ, stdin);
-        char *pos = strstr(input, "->");
         cut_space(input);
 
         bool action = pregame_main(input);
@@ -69,7 +67,6 @@ int main()
             setup_cards(); //use this for debugging
             start_turn();
             initialize_columns();
-            // shuffle_stack();
             //test method for changing deck order
             sprintf(g_msg,"OK");
             while (1)
@@ -86,16 +83,15 @@ int main()
 
                 if (!strcmp(input, "Q"))
                 {
-                    quit_game = true;
-                    
+                    // release_memory();
+                    quit_game = true;                    
                     break;
                 }
                 if (pos)
-                {
-                    //['C1:A1']
+                {                    
                     char **c = split_move(input, pos);
                     // printf("lhs: |%s|\t rhs:|%s|\n", c[0], c[1]);
-                    printf("--------------------\n");
+                    // printf("--------------------\n");
                     move_col_card(c);                    
                 } else {
                     sprintf(g_msg, "Unknown command");

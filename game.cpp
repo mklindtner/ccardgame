@@ -2,7 +2,31 @@
 #define _PLAY_GAME
 #include "headers.h"
 
+void release_memory()
+{
+    struct column_card *tmp;
 
+    printf("--freeing columns--\n");
+    for(int i = 0; i < 7; i++)
+    {
+        column_card *head = cols->columns[i]->head;
+        // printf("--column--\n");
+        while(head != NULL)
+        {
+            tmp = head;            
+            head = head->next;
+            free(tmp);
+        }
+    }
+    // printf("head: %d\n", cols->columns[0]->head->stack_card->isturned);
+
+    printf("--freeing stack--\n");
+    for(int i = 0; i < CARDSIZE; i++)
+    {
+        free(stack.cards_ref[i]);        
+    }            
+    // printf("stack id : %d\n", stack.cards_ref[0]->id);
+}
 
 void play_game(char *input)
 {

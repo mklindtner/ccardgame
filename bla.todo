@@ -1,50 +1,13 @@
-/* tests / todos
-    ☐ *make sure input can deal w. spaces (i.e. "C4 -> C4")
-    ☐ *strlen(input)- strlen(pos) returns a float, floor this so we get an integer
-    ☐ *split_move (commands.cpp) has a huge memory leak and doesn't clean any pointers, fix this.
-    ☐ *move_col_card uses atoi, this is a deprecated function, we should swap
-    ☐ *fix the input string, so no segment error eccours if nonsense input is given
-    
-    
-NOTICE
-    ☐ *move_col_card doesn't converge "A,Q,J,K" into a number
-    ☐ *find_card_by_payload (cards.cpp) doesn't account for F (foundations)
-    ☐ *find_card_by_payload doesn't account for giving a wrong color/id of a card
-    ☐ *transfer_columns cannot currently move to an empty column
-    ☐ *transfer_columns does not consider a null-head, i.e. cols->columns[i]->head = nullptr
-        ☐ *does not consider moving an entire column        
+mkl to fix:
 
-   ☐ *transfer_column (commands.cpp) does not allow the "to" column to be empty
- */
+18: Moving an entire column to another column disappears every card in the moved column except the bottommost one.
+Reproduce: Input ‘C1->F1’, C6->C3, C2:8S->C6, C6:KH->C1, C2->F1, 		C1:KH->C2
 
-/*  
-PLAY
-    Relevant
-        ✔ C1:C2 @done(22-04-11 21:10)
-        ✔ Foundations @done(22-04-12 23:25)
-            ✔ //TODO Håndter sidste kort i foundation @done(22-04-12 23:25)
-        ✔ Implement rule requirements @done(22-04-12 23:25)
-            ✔ CARD NOT FOUND @done(22-04-12 22:32)
-            ✔ Move 1 higher different suit columns @done(22-04-12 22:52)
-            ✔ only top foundation can be moved to column if 1 higher different suit @done(22-04-12 23:13)
-            ✔ to foundation same suit 1 higher if card, ACE if no cards @done(22-04-12 23:25)            
 
-    ✔ Rewrite 2-decimal to J,Q,etc. @done(22-04-12 22:06)
-    Fix illegal writes
+19: Hidden cards can still be targeted and moved as long as you can guess which column they are in.
 
-    
-Prelobby
-    ✔ loop games @done(22-04-22 22:49)
-    ✔ LD <filename> @done(22-04-22 21:33)
-    ✔ LD @done(22-04-22 21:33)
-    ✔ Turn the cards around in pregame @done(22-04-22 21:33)
-    ✔ SI @done(22-04-22 22:49)
-    ✔ SR @done(22-04-22 22:49)
-    ☐ QQ
+10: Using an invalid stack (C8) as argument crashes the game
 
-Prelobby issues
-    
+17: Starting a game, returning to the menu and starting a new game adds the decks together.
+	Reproduce: Input ‘P’, ‘Q’, ‘P’
 
-General
-    ☐ fix status message
-*/

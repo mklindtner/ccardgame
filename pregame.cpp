@@ -126,7 +126,7 @@ void pregame_SD()
     if (strlen(pregame_arg) < 1)
     {
         sprintf(pregame_arg, "%s", "cards.txt");
-        printf("pregame arg < 1 : %s", pregame_arg);
+        // printf("pregame arg < 1 : %s", pregame_arg);
     }
 
     FILE *f;

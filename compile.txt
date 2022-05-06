@@ -1,1 +1,3 @@
 clang project2.cpp cards.cpp commands.cpp game.cpp mainwindow.cpp pregame.cpp updatewindow.cpp
+
+https://docs.google.com/document/d/1LmIzRt5-2WUmVtnO1f4HjtIo_YM0iNjutsmD3RwOCTY/edit#

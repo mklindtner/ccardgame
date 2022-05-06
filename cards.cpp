@@ -23,7 +23,7 @@ column_card *find_card_payload(int idcolumn,int number, char *_color)
         }    
         column_card = column_card->next;
     }
-    printf("card not found\n");
+    // printf("card not found\n");
     sprintf(g_msg, "CARD NOT FOUND");
     return nullptr;
 }
@@ -236,6 +236,15 @@ void setup_cards()
 {
     //testing for C2->F1 (put 2S unto AS)
     // swap_stack_card(1, 31);
+
+    //bug error nr. 16
+    //C3:8H->C6
+    //C2->F1
+    //C3->F1
+    // swap_stack_card(13,31);
+    // swap_stack_card(47, 49);
+
+    
 }
 
 // this is shuffle deck
