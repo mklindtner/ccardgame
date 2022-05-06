@@ -35,7 +35,7 @@ void move_col_card(char **input)
 
     int char_card_number = 0;
     int char_card_color = 1;
-    // printf("beforel etter to int\n");
+    // printf("before letter to int\n");
     int number_card = letter_to_int(cardinfo[char_card_number]);
 
     char *color_card = &cardinfo[char_card_color];
@@ -173,6 +173,7 @@ char validate_move(int to_column, card *cvalidate)
             printf("validated input\n");
             return 0;
         }
+        sprintf(g_msg, "Illegal move");
         return 1;
     }
 
