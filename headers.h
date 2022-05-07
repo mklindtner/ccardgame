@@ -147,6 +147,7 @@ void pregame_SI(int split_point);
 void play_game(char *input);
 void setup_cards();
 void release_memory();
+void make_sorted_memory();
 
 #endif
 

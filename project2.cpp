@@ -45,7 +45,8 @@ int main()
 
     start_layout_table(input);
     while (1)
-    {
+    {        
+
         if(quit_game == true)
         {
             start_layout_table(input);
@@ -57,6 +58,7 @@ int main()
         cut_space(input);
 
         bool action = pregame_main(input);
+        // printf("---action completed---\n");
         if(quit == true)
         {
             break;
@@ -65,15 +67,10 @@ int main()
         // play mode
         if (!strcmp(input, "P"))
         {      
-            // if(first_time == true)
-            // {
-            //     first_time = false;
-            //     release_memory();
-            // }      
-            // generate_columns();
-            setup_cards(); //use this for debugging            
+            // setup_cards(); //use this for debugging            
             start_turn();
             initialize_columns();
+
             //test method for changing deck order
             sprintf(g_msg,"OK");
             while (1)
@@ -90,7 +87,7 @@ int main()
 
                 if (!strcmp(input, "Q"))
                 {
-                    // release_memory();
+                    release_memory();
                     quit_game = true;                    
                     break;
                 }
@@ -127,3 +124,6 @@ void cut_space(char *input)
     // printf("input after cut: |%s|\n", input);
 }
 #pragma clang diagnostic pop
+
+
+//first get new sorted columns, each time 

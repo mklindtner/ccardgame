@@ -1,5 +1,11 @@
 mkl to fix:
 
+17: Starting a game, returning to the menu and starting a new game adds the decks together.
+	Reproduce: Input ‘P’, ‘Q’, ‘P’
+
+Fix "LD" - needs to load an unshuffled deck
+
+
 18: Moving an entire column to another column disappears every card in the moved column except the bottommost one.
 Reproduce: Input ‘C1->F1’, C6->C3, C2:8S->C6, C6:KH->C1, C2->F1, 		C1:KH->C2
 
@@ -8,6 +14,5 @@ Reproduce: Input ‘C1->F1’, C6->C3, C2:8S->C6, C6:KH->C1, C2->F1, 		C1:KH->C2
 
 10: Using an invalid stack (C8) as argument crashes the game
 
-17: Starting a game, returning to the menu and starting a new game adds the decks together.
-	Reproduce: Input ‘P’, ‘Q’, ‘P’
+
 

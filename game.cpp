@@ -2,39 +2,51 @@
 #define _PLAY_GAME
 #include "headers.h"
 
+//untested
+void make_sorted_memory()
+{
+    generate_columns();
+    printf("--sucessfully generated columns---\n");
+    start_turn();
+    printf("--sucessfully start_turn---\n");
+    initialize_columns();
+    printf("--successfully initialized columns--\n");
+}
+
 void release_memory()
 {
-    printf("--freeing columns--\n");
-    for(int i = 0; i < 7; i++)
+    // printf("--freeing columns--\n");
+    
+    //free columns
+    for (int i = 0; i < 7; i++)
     {
         struct column_card *tmp;
         column_card *head = cols->columns[i]->head;
         // printf("--column--\n");
-        while(head != NULL)
+        while (head != NULL)
         {
-            // printf("<<<<<<<<HERE>>>>>>>>>>>>>>>\n");            
-            tmp = head;       
-            // tmp->stack_card = nullptr;     
+            // printf("<<<<<<<<HERE>>>>>>>>>>>>>>>\n");
+            tmp = head;
+            // tmp->stack_card = nullptr;
             head = head->next;
-            free(tmp);            
-        }        
+            free(tmp);
+        }
         cols->columns[i]->head = nullptr;
     }
-   
-    // printf("head: %d\n", cols->columns[0]->head->stack_card->isturned);
 
-    printf("--freeing stack--\n");
-    for(int i = 0; i < CARDSIZE; i++)
+    //free foundation
+    for (int i = 0; i < 4; i++)
     {
-        free(stack.cards_ref[i]);
-        // stack.cards_ref[i] = nullptr;        
-    }            
-    
-    printf("stack id : %d\n", stack.cards_ref[0]->id);
-
-    // free(cols->columns);
-    // free(fonds->foundations);
-    // free(stack.cards_ref);    
+        struct column_card *tmp;
+        column_card *head = fonds->foundations[i]->head;
+        while (head != NULL)
+        {
+            tmp = head;
+            head = head->next;
+            free(tmp);
+        }
+        fonds->foundations[i]->head = nullptr;
+    }
 }
 
 void play_game(char *input)
@@ -64,7 +76,7 @@ void play_game(char *input)
             printf("--------------------\n");
             move_col_card(c);
         }
-    }    
+    }
 }
 
 #endif

@@ -69,7 +69,7 @@ void move_col_card(char **input)
         }
 
         if (!validate_move(to_column, fonds->foundations[from_foundation]->head->stack_card->card))
-        {            
+        {
             column_card *fcnext = fonds->foundations[from_foundation]->head->next;
             // printf("before fc\n");
             // move foundation head to column head
@@ -94,9 +94,10 @@ void move_col_card(char **input)
 
         column_card *ccnext = cols->columns[from_column]->head->next;
         column_card *cchead = cols->columns[from_column]->head;
+        column_card *cfhead = fonds->foundations[to_foundation]->head;
 
         // empty foundation
-        if (fonds->foundations[to_foundation]->head == nullptr)
+        if (cfhead == nullptr)
         {
             if (cchead->stack_card->card->number != 1)
             {
@@ -118,11 +119,29 @@ void move_col_card(char **input)
             sprintf(g_msg, "Illegal move");
             return;
         }
-        cchead->next = fonds->foundations[to_foundation]->head;
-        fonds->foundations[to_foundation]->head = cchead;
+        // printf("<all legal moving card>\n");
+        if (ccnext == nullptr)
+        {
+            printf("<am here>\n");            
+            column_card *cf_newhead = (column_card *) malloc(sizeof(column_card *));            
+            memcpy(cf_newhead, cchead, sizeof(column_card *)*3);            
+            
+            column_card *tmp = cfhead;
+            fonds->foundations[to_foundation]->head = cf_newhead;
+            fonds->foundations[to_foundation]->head->next = tmp;
+            // printf("cfhead: %d\t cfhead-next: %d\n",  fonds->foundations[to_foundation]->head->stack_card->card->number,  fonds->foundations[to_foundation]->head->next->stack_card->card->number);
 
-        cols->columns[from_column]->head = ccnext;
-        ccnext->stack_card->isturned = 1;
+            cols->columns[from_column]->head = nullptr;
+            sprintf(g_msg, "OK");
+            return;
+        }
+
+        ccnext = cfhead;
+        cfhead = cchead;
+        cchead = ccnext;
+
+        cchead->stack_card->isturned = 1;
+
         sprintf(g_msg, "OK");
         return;
     }
@@ -142,7 +161,9 @@ void move_col_card(char **input)
             transfer_column(from_column, to_column, mv_ccard);
             sprintf(g_msg, "OK");
         }
-    } else {
+    }
+    else
+    {
         // printf("mv_card is null\n");
     }
 }
@@ -151,7 +172,7 @@ char validate_move_foundation(int to_foundation, card *cvalidate)
 {
     card *chead = fonds->foundations[to_foundation]->head->stack_card->card;
     // printf("chead: number:%d\t color: %d\n", chead->number, chead->color);
-    // printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);    
+    // printf("cvalidate: number: %d\t color: %d\n", cvalidate->number, cvalidate->color);
 
     if ((cvalidate->color == chead->color) && (chead->number + 1 == cvalidate->number))
     {
@@ -165,10 +186,10 @@ char validate_move(int to_column, card *cvalidate)
 {
     // printf("before cols\n");
     column_card *cc = cols->columns[to_column]->head;
-    if(cc == nullptr)
+    if (cc == nullptr)
     {
-        //validate if kings
-        if(cvalidate->number == 13 || cvalidate->number == 26 || cvalidate->number == 39 || cvalidate->number == 52)
+        // validate if kings
+        if (cvalidate->number == 13 || cvalidate->number == 26 || cvalidate->number == 39 || cvalidate->number == 52)
         {
             printf("validated input\n");
             return 0;
@@ -179,7 +200,7 @@ char validate_move(int to_column, card *cvalidate)
 
     card *chead = cols->columns[to_column]->head->stack_card->card;
     // printf("after cols\n");
-    if ((cvalidate->color != chead->color) && ( (chead->number - 1) == cvalidate->number))
+    if ((cvalidate->color != chead->color) && ((chead->number - 1) == cvalidate->number))
     {
         // printf("accepted\n");
         return 0;

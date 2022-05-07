@@ -87,9 +87,15 @@ void pregame_LD(char *input)
     // printf("arg length: %d\n", (int) strlen(pregame_arg));
     if (strlen(pregame_arg) < 1)
     {
-        // shuffle_stack();
-        // make a new unshuffled deck here
+        // release_memory();
+        // make_sorted_memory();
+        // printf("---finished make_sorted_memory---\n");<
+        for(int i = 0; i < CARDSIZE; i++)
+        {
+            stack.cards_ref[i]->card = card_definition_list[i];
+        }
         pregame_layout(input, false);
+        // printf("---finished pregame_layout---\n");
     }
     else
     {
@@ -174,7 +180,8 @@ bool pregame_main(char *input)
         {
             pregame_LD(input);
             sprintf(g_msg, "OK");
-            // pregame_layout(input, false);
+            pregame_layout(input, false);
+            // printf("---LD completed---\n");
             return 0;
         }
 
@@ -248,7 +255,6 @@ void pregame_layout_cards(bool show_cards)
     int f = 0;
     for (int i = 0; i < PREGAME_ROWSIZE; i++)
     {
-
         for (int j = 0; j < COLUMNSIZE; j++)
         {
             if (i * 7 + j < CARDSIZE)
