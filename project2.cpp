@@ -125,5 +125,20 @@ void cut_space(char *input)
 }
 #pragma clang diagnostic pop
 
-
+void release_memory() {
+    //free columns
+    for (int i = 0; i < 7; i++) {
+        struct column_card *tmp;
+        column_card *head = cols->columns[i]->head;
+        // printf("--column--\n");
+        while (head != NULL) {
+            // printf("<<<<<<<<HERE>>>>>>>>>>>>>>>\n");
+            tmp = head;
+            // tmp->stack_card = nullptr;
+            head = head->next;
+            free(tmp);
+        }
+        cols->columns[i]->head = nullptr;
+    }
+}
 //first get new sorted columns, each time 

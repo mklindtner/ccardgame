@@ -215,7 +215,7 @@ bool pregame_main(char *input)
             {
                 srand(time(NULL));
                 split_point = rand() % CARDSIZE;
-                printf("split_point: %d\n", split_point);
+                //printf("split_point: %d\n", split_point);
                 pregame_SI(split_point);
             }
             else

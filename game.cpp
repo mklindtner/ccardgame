@@ -2,21 +2,10 @@
 #define _PLAY_GAME
 #include "headers.h"
 
-//untested
-void make_sorted_memory()
-{
-    generate_columns();
-    printf("--sucessfully generated columns---\n");
-    start_turn();
-    printf("--sucessfully start_turn---\n");
-    initialize_columns();
-    printf("--successfully initialized columns--\n");
-}
+
 
 void release_memory()
 {
-    // printf("--freeing columns--\n");
-    
     //free columns
     for (int i = 0; i < 7; i++)
     {
